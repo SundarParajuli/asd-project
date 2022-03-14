@@ -1,5 +1,5 @@
 package framework;
 
-public interface Observer {
+public interface AccountObserver {
     void update();
 }

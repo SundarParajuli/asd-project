@@ -5,7 +5,7 @@ import framework.Account;
 import framework.AccountOperation;
 import framework.AccountService;
 import framework.Customer;
-import framework.Observer;
+import framework.AccountObserver;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * A basic JFC based application.
  */
-public class MainFrm extends FormTemplate implements UIControl, Observer
+public class MainFrm extends FormTemplate implements UIControl, AccountObserver
 {
     /****
      * init variables in the object

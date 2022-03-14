@@ -3,7 +3,7 @@ package creditcard.observer;
 
 import framework.*;
 
-public class EmailSender implements Observer {
+public class EmailSender implements AccountObserver {
     private AccountService actsvc;
 
     public EmailSender(AccountService accountService) {

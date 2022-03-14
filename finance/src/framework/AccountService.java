@@ -8,9 +8,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class AccountService implements Observable {
+public abstract class AccountService implements AccountObservable {
     private AccountDAO accountDAO;
-    private List<Observer> observerList;
+    private List<AccountObserver> accountObserverList;
     private Account changedAccount;
     private double changedAmount;
     protected AccountOperation operation;
@@ -18,7 +18,7 @@ public abstract class AccountService implements Observable {
 
     public AccountService(AccountDAO accountDAO){
         this.accountDAO = accountDAO;
-        this.observerList = new ArrayList<>();
+        this.accountObserverList = new ArrayList<>();
         this.registerObserver(MainFrm.getInstance());
         MainFrm.getInstance().setSubject(this);
     }
@@ -74,18 +74,18 @@ public abstract class AccountService implements Observable {
     }
 
     @Override
-    public void registerObserver(Observer observer) {
-        this.observerList.add(observer);
+    public void registerObserver(AccountObserver accountObserver) {
+        this.accountObserverList.add(accountObserver);
     }
 
     @Override
-    public void removeObserver(Observer observer) {
-        this.observerList.remove(observer);
+    public void removeObserver(AccountObserver accountObserver) {
+        this.accountObserverList.remove(accountObserver);
     }
 
     @Override
     public void notifyObservers() {
-        this.observerList.forEach(Observer::update);
+        this.accountObserverList.forEach(AccountObserver::update);
     }
 
     public Account getAccount(String accountNumber) {
