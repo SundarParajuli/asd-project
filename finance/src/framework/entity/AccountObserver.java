@@ -1,5 +1,5 @@
 package framework.entity;
 
 public interface AccountObserver {
-    void update();
+    void update(String type);
 }

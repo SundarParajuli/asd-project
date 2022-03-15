@@ -12,7 +12,6 @@ public abstract class AccountService implements AccountObservable {
     private List<AccountObserver> observerList;
     private Account changedAccount;
     private double changedAmount;
-    protected AccountOperation operation;
     private String report;
 
     public AccountService(AccountDAO accountDAO){
@@ -28,8 +27,7 @@ public abstract class AccountService implements AccountObservable {
         account.setAccountNumber(accountNumber);
         accountDAO.saveAccount(account);
         this.changedAccount = account;
-        this.operation = AccountOperation.CREATED;
-        notifyObservers();
+        notifyObservers("create");
     }
 
     public abstract Account initAccount(String accountType, Customer customer);
@@ -44,8 +42,7 @@ public abstract class AccountService implements AccountObservable {
         }
         this.changedAccount = account;
         this.changedAmount = amount;
-        this.operation = AccountOperation.DEPOSITED;
-        notifyObservers();
+        notifyObservers("deposit");
     }
 
     public void withdraw(String accountNumber, double amount) {
@@ -54,8 +51,7 @@ public abstract class AccountService implements AccountObservable {
         accountDAO.updateAccount(account);
         this.changedAccount = account;
         this.changedAmount = amount;
-        this.operation = AccountOperation.WITHDREW;
-        notifyObservers();
+        notifyObservers("withdraw");
     }
 
     public void addInterest() {
@@ -65,8 +61,7 @@ public abstract class AccountService implements AccountObservable {
             account.interest();
             accountDAO.updateAccount(account);
         }
-        this.operation = AccountOperation.INTEREST;
-        notifyObservers();
+        notifyObservers("interest");
     }
 
     public void buildReport() {
@@ -83,8 +78,10 @@ public abstract class AccountService implements AccountObservable {
     }
 
     @Override
-    public void notifyObservers() {
-        this.observerList.forEach(AccountObserver::update);
+    public void notifyObservers(String type) {
+        for(AccountObserver ao : observerList){
+            ao.update(type);
+        }
     }
 
     public Account getAccount(String accountNumber) {
@@ -97,10 +94,6 @@ public abstract class AccountService implements AccountObservable {
 
     public Account getChangedAccount() {
         return changedAccount;
-    }
-
-    public AccountOperation getOperation() {
-        return operation;
     }
 
     public double getChangedAmount() {

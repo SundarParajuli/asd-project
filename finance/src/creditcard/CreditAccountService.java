@@ -8,7 +8,6 @@ import creditcard.paymentCalculators.BronzePaymentCalculator;
 import creditcard.paymentCalculators.GoldPaymentCalculator;
 import creditcard.paymentCalculators.SilverPaymentCalculator;
 import framework.entity.Account;
-import framework.entity.AccountOperation;
 import framework.entity.AccountService;
 import framework.entity.Customer;
 import framework.observer.SMSSender;
@@ -75,7 +74,6 @@ public class CreditAccountService extends AccountService {
             billstring += "\r\n";
         }
         setReport(billstring);
-        super.operation = AccountOperation.REPORT;
-        notifyObservers();
+        notifyObservers("report");
     }
 }
