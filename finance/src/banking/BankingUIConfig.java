@@ -1,7 +1,7 @@
 package banking;
 
-import framework.Account;
-import framework.Personal;
+import framework.entity.Account;
+import framework.entity.Personal;
 import framework.ui.UIConfig;
 
 import java.util.Arrays;

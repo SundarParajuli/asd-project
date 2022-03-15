@@ -1,7 +1,7 @@
 package framework.ui;
 
 
-import framework.Customer;
+import framework.entity.Customer;
 
 public interface UIControl {
     void init(String title, UIConfig config);

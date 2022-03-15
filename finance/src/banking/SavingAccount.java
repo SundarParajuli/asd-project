@@ -1,8 +1,8 @@
 package banking;
 
 
-import framework.Account;
-import framework.InterestCalculator;
+import framework.entity.Account;
+import framework.entity.InterestCalculator;
 
 public class SavingAccount extends Account {
     public SavingAccount(InterestCalculator interestCalculator) {

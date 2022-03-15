@@ -1,0 +1,20 @@
+package framework.commands;
+
+import framework.entity.AccountService;
+import framework.ui.Command;
+import framework.ui.UIControl;
+
+public class AddInterestCommand implements Command {
+
+	private AccountService accountService;
+
+	public AddInterestCommand(AccountService accountService) {
+		this.accountService = accountService;
+	}
+
+	@Override
+	public void execute(UIControl control) {
+		accountService.addInterest();
+		
+	}
+}

@@ -3,14 +3,14 @@ package creditcard;
 
 
 
-import creditcard.observer.EmailSender;
+import framework.observer.EmailSender;
 import creditcard.paymentCalculators.BronzePaymentCalculator;
 import creditcard.paymentCalculators.GoldPaymentCalculator;
 import creditcard.paymentCalculators.SilverPaymentCalculator;
-import framework.Account;
-import framework.AccountOperation;
-import framework.AccountService;
-import framework.Customer;
+import framework.entity.Account;
+import framework.entity.AccountOperation;
+import framework.entity.AccountService;
+import framework.entity.Customer;
 
 import java.time.LocalDate;
 

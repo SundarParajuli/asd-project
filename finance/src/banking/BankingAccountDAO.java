@@ -1,8 +1,8 @@
 package banking;
 
 
-import framework.Account;
-import framework.AccountDAO;
+import framework.entity.Account;
+import framework.entity.AccountDAO;
 
 import java.util.ArrayList;
 import java.util.Collection;

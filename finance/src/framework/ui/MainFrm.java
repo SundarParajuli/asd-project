@@ -1,11 +1,11 @@
 package framework.ui;
 
 
-import framework.Account;
-import framework.AccountOperation;
-import framework.AccountService;
-import framework.Customer;
-import framework.AccountObserver;
+import framework.entity.AccountObserver;
+import framework.entity.Account;
+import framework.entity.AccountOperation;
+import framework.entity.AccountService;
+import framework.entity.Customer;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

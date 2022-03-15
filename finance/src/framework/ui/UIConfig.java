@@ -1,6 +1,6 @@
 package framework.ui;
 
-import framework.Account;
+import framework.entity.Account;
 
 import java.util.Collection;
 

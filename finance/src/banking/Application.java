@@ -2,7 +2,7 @@ package banking;
 
 
 
-import banking.commands.*;
+import framework.commands.*;
 import framework.ui.MainFrm;
 import framework.ui.UIControl;
 
@@ -16,11 +16,11 @@ public class Application {
             frm.init("Banking Application", new BankingUIConfig());
 
             //commands
-            frm.setAddPersonalAccountCommand(new AddPersonalAccountCommand());
-            frm.setAddCompanyAccountCommand(new AddCompanyAccountCommand());
-            frm.setDepositCommand(new DepositAccountCommand());
-            frm.setWithdrawCommand(new WithdrawCommand());
-            frm.setAddInterestCommand(new AddInterestCommand());
+            frm.setAddPersonalAccountCommand(new AddPersonalAccountCommand(BankingAccountService.getInstance()));
+            frm.setAddCompanyAccountCommand(new AddCompanyAccountCommand(BankingAccountService.getInstance()));
+            frm.setDepositCommand(new DepositAccountCommand(BankingAccountService.getInstance()));
+            frm.setWithdrawCommand(new WithdrawCommand(BankingAccountService.getInstance()));
+            frm.setAddInterestCommand(new AddInterestCommand(BankingAccountService.getInstance()));
 
             //Create a new instance of our application's frame, and make it visible.
             frm.setVisible(true);
