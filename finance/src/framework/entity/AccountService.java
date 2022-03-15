@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import framework.ui.MainFrm;
 
-public abstract class AccountService implements Observable {
+public abstract class AccountService implements AccountObservable {
     private AccountDAO accountDAO;
     private List<AccountObserver> observerList;
     private Account changedAccount;
