@@ -17,7 +17,7 @@ public class SMSSender implements AccountObserver {
             if (account.getCustomer() instanceof Personal && (amount <= 500 && account.getBalance() > 0)) {
                 return;
             }
-            System.out.println("Sending SMS to: " + account.getCustomer().getEmail() + " Transaction in account (" + account.getAccountNumber() + ") amount = \n" + amount + " - " + accountService.getOperation());
+            System.out.println("Sending SMS to: " + account.getCustomer().getEmail() + " Transaction in account (" + account.getAccountNumber() + ") amount = \n" + amount + " - " + type);
         }
     }
 }
