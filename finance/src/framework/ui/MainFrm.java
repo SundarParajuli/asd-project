@@ -3,7 +3,6 @@ package framework.ui;
 
 import framework.entity.AccountObserver;
 import framework.entity.Account;
-import framework.entity.AccountOperation;
 import framework.entity.AccountService;
 import framework.entity.Customer;
 
@@ -227,10 +226,11 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 	}
 
 	@Override
-	public void update() {
-		if (this.subject.getOperation() == AccountOperation.REPORT) {
+	public void update(String type) {
+		if (type.equals("report")) {
 			return;
 		}
+
 		// reload accounts to view
 		if (model.getRowCount() > 0) {
 			for (int i = model.getRowCount() - 1; i > -1; i--) {
