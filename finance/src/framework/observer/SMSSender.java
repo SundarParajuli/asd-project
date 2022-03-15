@@ -1,12 +1,11 @@
 package framework.observer;
 
-
 import framework.entity.*;
 
-public class EmailSender implements AccountObserver {
+public class SMSSender implements AccountObserver {
     private AccountService accountService;
 
-    public EmailSender(AccountService accountService) {
+    public SMSSender(AccountService accountService) {
         this.accountService = accountService;
     }
 
@@ -18,7 +17,7 @@ public class EmailSender implements AccountObserver {
             if (account.getCustomer() instanceof Personal && (amount <= 500 && account.getBalance() > 0)) {
                 return;
             }
-            System.out.println("Sending email to: " + account.getCustomer().getEmail() + " Transaction in account (" + account.getAccountNumber() + ") amount = \n" + amount + " - " + accountService.getOperation());
+            System.out.println("Sending SMS to: " + account.getCustomer().getEmail() + " Transaction in account (" + account.getAccountNumber() + ") amount = \n" + amount + " - " + accountService.getOperation());
         }
     }
 }

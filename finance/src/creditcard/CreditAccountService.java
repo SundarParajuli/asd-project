@@ -11,6 +11,7 @@ import framework.entity.Account;
 import framework.entity.AccountOperation;
 import framework.entity.AccountService;
 import framework.entity.Customer;
+import framework.observer.SMSSender;
 
 import java.time.LocalDate;
 
@@ -21,6 +22,7 @@ public class CreditAccountService extends AccountService {
     private CreditAccountService() {
         super(new CreditAccountDAO());
         this.registerObserver(new EmailSender(this));
+        this.registerObserver(new SMSSender(this));
     }
 
     public static CreditAccountService getInstance() {

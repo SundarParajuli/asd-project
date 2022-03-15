@@ -9,6 +9,7 @@ import framework.entity.AccountService;
 import framework.entity.Customer;
 import framework.entity.Personal;
 import framework.observer.EmailSender;
+import framework.observer.SMSSender;
 
 public class BankingAccountService extends AccountService {
     private static volatile BankingAccountService instance;
@@ -16,6 +17,7 @@ public class BankingAccountService extends AccountService {
     private BankingAccountService() {
         super(BankingAccountDAO.getInstance());
         this.registerObserver(new EmailSender(this));
+        this.registerObserver(new SMSSender(this));
     }
 
     @Override
