@@ -32,9 +32,9 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 	private String accountNumber;
 	private String accountType;
 
-	JPanel JPanel1 = new JPanel();
+	JPanel JPanel = new JPanel();
 
-	String accountnr;
+	String accountNmbr;
 	String clientName;
 	String street;
 	String city;
@@ -44,7 +44,7 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
     boolean newaccount;
 
     private AccountService subject;
-    private UIConfig uiConfig;
+    private UIConfiguration uiConfiguration;
     private static volatile MainFrm myframe;
 
 
@@ -70,7 +70,7 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 		return myframe;
 	}
 
-	public void init(String title, UIConfig uiConfig) {
+	public void init(String title, UIConfiguration uiConfiguration) {
 		Map<String,ActionListener> buttons = new HashMap<>();
 		buttons.put("Add personal account",personalAccount);
 		buttons.put("Add company account",companyAccount);
@@ -78,12 +78,12 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 		buttons.put("Deposit",deposit);
 		buttons.put("Add Interest",addInterest);
 		buttons.put("Exit",exit);
-		this.uiConfig = uiConfig;
-		if (uiConfig.hasReport()) {
+		this.uiConfiguration = uiConfiguration;
+		if (uiConfiguration.hasReport()) {
 			buttons.put("Generate Bill", generateBill);
 		}
-		this.accountTypes = this.uiConfig.getAccountTypes();
-		generateForm(title,uiConfig,buttons);
+		this.accountTypes = this.uiConfiguration.getAccountTypes();
+		generateForm(title, uiConfiguration,buttons);
 	}
 
 	public String getAmount() {
@@ -94,13 +94,13 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 		System.exit(0);
 	};
 	private final ActionListener personalAccount = (ActionListener) -> {
-		openDialog(new JDialog_AddPersonAct(myframe));
+		openDialog(new JDialog_AddPersonalAccount(myframe));
 		if (newaccount) {
 			this.addPersonalAccountCommand.execute(this);
 		}
 	};
 	private final ActionListener companyAccount = (ActionListener) -> {
-		openDialog(new JDialog_AddCompAcc(myframe));
+		openDialog(new JDialog_AddCompanyAccount(myframe));
 		if (newaccount) {
 			this.addCompanyAccountCommand.execute(this);
 		}
@@ -108,7 +108,7 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 	private final ActionListener deposit = (ActionListener) -> {
 		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
 		if (selection >= 0) {
-			String accnr = (String) model.getValueAt(selection, uiConfig.getIdColumnIndex());
+			String accnr = (String) model.getValueAt(selection, uiConfiguration.getIdColumnIndex());
 			openDialog(new JDialog_Withdraw(myframe, accnr),430, 15, 275, 140);
 			this.depositCommand.execute(this);
 		}
@@ -124,7 +124,7 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 	private final ActionListener withdraw = (ActionListener) -> {
 		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
 		if (selection >= 0){
-			String accnr = (String) model.getValueAt(selection, uiConfig.getIdColumnIndex());
+			String accnr = (String) model.getValueAt(selection, uiConfiguration.getIdColumnIndex());
 			openDialog(new JDialog_Withdraw(myframe, accnr),430, 15, 275, 140);
 			this.withdrawCommand.execute(this);
 		}
@@ -273,7 +273,7 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 	}
 
 	private void tableRow(Account act){
-		model.addRow(this.uiConfig.buildRow(act));
+		model.addRow(this.uiConfiguration.buildRow(act));
 		JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
 		newaccount = false;
 	}

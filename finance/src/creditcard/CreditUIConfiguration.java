@@ -1,12 +1,12 @@
 package creditcard;
 
 import framework.entity.Account;
-import framework.ui.UIConfig;
+import framework.ui.UIConfiguration;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-public class CreditUIConfig implements UIConfig {
+public class CreditUIConfiguration implements UIConfiguration {
     @Override
     public Collection<String> getAccountTypes() {
         return Arrays.asList(CreditCardType.GOLD.name(), CreditCardType.SILVER.name(), CreditCardType.BRONZE.name());

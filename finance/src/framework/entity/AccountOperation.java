@@ -1,9 +1,9 @@
 package framework.entity;
 
 public enum AccountOperation {
-    CREATED,
-    DEPOSITED,
-    WITHDREW,
+    CREATE,
+    DEPOSIT,
+    WITHDRAW,
     INTEREST,
     REPORT,
 }

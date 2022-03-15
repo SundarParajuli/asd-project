@@ -13,7 +13,7 @@ public class Application {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             UIController uiController = MainFrm.getInstance();
-            uiController.init("Banking Application", new BankingUIConfig());
+            uiController.init("Banking Application", new BankingUIConfiguration());
 
             //commands
             uiController.setAddPersonalAccountCommand(new AddPersonalAccountCommand(BankingAccountService.getInstance()));

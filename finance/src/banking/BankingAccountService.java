@@ -1,9 +1,9 @@
 package banking;
 
-import banking.interestCalculators.CompanyCheckingInterestCalculator;
-import banking.interestCalculators.CompanySavingInterestCalculator;
-import banking.interestCalculators.PersonalCheckingInterestCalculator;
-import banking.interestCalculators.PersonalSavingInterestCalculator;
+import banking.interestCalculationStrategy.CompanyCheckingInterestStrategy;
+import banking.interestCalculationStrategy.CompanySavingInterestStrategy;
+import banking.interestCalculationStrategy.PersonalCheckingInterestStrategy;
+import banking.interestCalculationStrategy.PersonalSavingInterestStrategy;
 import framework.entity.Account;
 import framework.entity.AccountService;
 import framework.entity.Customer;
@@ -14,22 +14,22 @@ public class BankingAccountService extends AccountService {
     private static volatile BankingAccountService instance;
 
     private BankingAccountService() {
-        super(BankingAccountDAO.getInstance());
+        super(BankingAccountDAO.getINSTANCE());
         this.registerObserver(new EmailSender(this));
     }
 
     @Override
     public Account initAccount(String accountType, Customer customer) {
         if (customer instanceof Personal) {
-            if (AccountTypes.valueOf(accountType) == AccountTypes.Checking) {
-                return new CheckingAccount(new PersonalCheckingInterestCalculator());
+            if (AccountType.valueOf(accountType) == AccountType.CHECKING) {
+                return new CheckingAccount(new PersonalCheckingInterestStrategy());
             }
-            return new SavingAccount(new PersonalSavingInterestCalculator());
+            return new SavingAccount(new PersonalSavingInterestStrategy());
         }
-        if (AccountTypes.valueOf(accountType) == AccountTypes.Checking) {
-            return new CheckingAccount(new CompanyCheckingInterestCalculator());
+        if (AccountType.valueOf(accountType) == AccountType.CHECKING) {
+            return new CheckingAccount(new CompanyCheckingInterestStrategy());
         }
-        return new SavingAccount(new CompanySavingInterestCalculator());
+        return new SavingAccount(new CompanySavingInterestStrategy());
     }
 
     public static BankingAccountService getInstance() {

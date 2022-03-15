@@ -28,7 +28,7 @@ public abstract class AccountService implements AccountObservable {
         account.setAccountNumber(accountNumber);
         accountDAO.saveAccount(account);
         this.changedAccount = account;
-        this.operation = AccountOperation.CREATED;
+        this.operation = AccountOperation.CREATE;
         notifyObservers();
     }
 
@@ -44,7 +44,7 @@ public abstract class AccountService implements AccountObservable {
         }
         this.changedAccount = account;
         this.changedAmount = amount;
-        this.operation = AccountOperation.DEPOSITED;
+        this.operation = AccountOperation.DEPOSIT;
         notifyObservers();
     }
 
@@ -54,7 +54,7 @@ public abstract class AccountService implements AccountObservable {
         accountDAO.updateAccount(account);
         this.changedAccount = account;
         this.changedAmount = amount;
-        this.operation = AccountOperation.WITHDREW;
+        this.operation = AccountOperation.WITHDRAW;
         notifyObservers();
     }
 

@@ -4,7 +4,7 @@ package framework.ui;
 import framework.entity.Customer;
 
 public interface UIController {
-    void init(String title, UIConfig config);
+    void init(String title, UIConfiguration config);
     void setAddPersonalAccountCommand(Command addAccountCommand);
     void setAddCompanyAccountCommand(Command addAccountCommand);
     void setReportCommand(Command reportCommand);
