@@ -1,10 +1,13 @@
 package framework.entity;
 
+import framework.visitor.AccountVisitor;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 
-public abstract class Account {
+public abstract class Account implements Consumer<AccountVisitor> {
     private Customer customer;
     private String accountNumber;
     private List<AccountEntry> accountEntries;

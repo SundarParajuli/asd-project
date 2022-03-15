@@ -3,6 +3,7 @@ package banking;
 
 import framework.entity.Account;
 import framework.entity.InterestCalculator;
+import framework.visitor.AccountVisitor;
 
 public class SavingAccount extends Account {
     public SavingAccount(InterestCalculator interestCalculator) {
@@ -12,5 +13,10 @@ public class SavingAccount extends Account {
     @Override
     public String getAccountType() {
         return AccountTypes.Saving.name();
+    }
+
+    @Override
+    public void accept(AccountVisitor accountVisitor) {
+        accountVisitor.visit(this);
     }
 }
