@@ -1,7 +1,7 @@
 package banking.interestCalculators;
 
 
-import framework.InterestCalculator;
+import framework.entity.InterestCalculator;
 
 public class CompanyCheckingInterestCalculator implements InterestCalculator {
     //TODO::interest calculation is static it should be dynamic

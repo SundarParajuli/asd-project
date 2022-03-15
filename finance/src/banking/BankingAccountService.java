@@ -4,12 +4,11 @@ import banking.interestCalculators.CompanyCheckingInterestCalculator;
 import banking.interestCalculators.CompanySavingInterestCalculator;
 import banking.interestCalculators.PersonalCheckingInterestCalculator;
 import banking.interestCalculators.PersonalSavingInterestCalculator;
-import banking.observer.EmailSender;
-
-import framework.Account;
-import framework.AccountService;
-import framework.Customer;
-import framework.Personal;
+import framework.entity.Account;
+import framework.entity.AccountService;
+import framework.entity.Customer;
+import framework.entity.Personal;
+import framework.observer.EmailSender;
 
 public class BankingAccountService extends AccountService {
     private static volatile BankingAccountService instance;

@@ -1,6 +1,6 @@
 package framework.ui;
 
-import framework.Company;
+import framework.entity.Company;
 
 import javax.swing.*;
 import java.awt.*;

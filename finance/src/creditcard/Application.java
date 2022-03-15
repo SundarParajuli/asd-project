@@ -1,7 +1,7 @@
 package creditcard;
 
 
-import creditcard.commands.*;
+import framework.commands.*;
 import framework.ui.MainFrm;
 import framework.ui.UIController;
 
@@ -16,12 +16,12 @@ public class Application {
             frm.init("Credit Card Application", new CreditUIConfig());
 
             //commands
-            frm.setAddPersonalAccountCommand(new AddPersonalAccountCommand());
-            frm.setAddCompanyAccountCommand(new AddCompanyAccountCommand());
-            frm.setDepositCommand(new DepositAccountCommand());
-            frm.setWithdrawCommand(new WithdrawCommand());
-            frm.setAddInterestCommand(new AddInterestCommand());
-            frm.setReportCommand(new ReportCommand());
+            frm.setAddPersonalAccountCommand(new AddPersonalAccountCommand(CreditAccountService.getInstance()));
+            frm.setAddCompanyAccountCommand(new AddCompanyAccountCommand(CreditAccountService.getInstance()));
+            frm.setDepositCommand(new DepositAccountCommand(CreditAccountService.getInstance()));
+            frm.setWithdrawCommand(new WithdrawCommand(CreditAccountService.getInstance()));
+            frm.setAddInterestCommand(new AddInterestCommand(CreditAccountService.getInstance()));
+            frm.setReportCommand(new ReportCommand(CreditAccountService.getInstance()));
 
             //Create a new instance of our application's frame, and make it visible.
             frm.setVisible(true);

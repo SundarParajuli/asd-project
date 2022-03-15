@@ -3,7 +3,7 @@ package framework.ui;
 		A basic implementation of the JDialog class.
 */
 
-import framework.Personal;
+import framework.entity.Personal;
 
 import javax.swing.*;
 import java.awt.*;

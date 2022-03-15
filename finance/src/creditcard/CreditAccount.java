@@ -2,8 +2,8 @@ package creditcard;
 
 
 import creditcard.paymentCalculators.PaymentCalculator;
-import framework.Account;
-import framework.AccountEntry;
+import framework.entity.Account;
+import framework.entity.AccountEntry;
 
 import java.time.LocalDate;
 

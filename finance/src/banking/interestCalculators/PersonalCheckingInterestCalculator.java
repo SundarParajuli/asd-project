@@ -1,7 +1,7 @@
 package banking.interestCalculators;
 
 
-import framework.InterestCalculator;
+import framework.entity.InterestCalculator;
 
 public class PersonalCheckingInterestCalculator implements InterestCalculator {
     @Override

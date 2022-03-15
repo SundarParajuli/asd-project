@@ -1,6 +1,6 @@
 package creditcard;
 
-import framework.Account;
+import framework.entity.Account;
 import framework.ui.UIConfig;
 
 import java.util.Arrays;
