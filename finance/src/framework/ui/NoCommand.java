@@ -17,6 +17,6 @@ public class NoCommand implements Command {
         return instance;
     }
     @Override
-    public void execute(UIControl control) {
+    public void execute(UIController control) {
     }
 }

@@ -3,11 +3,16 @@ package banking.commands;
 
 import banking.BankingAccountService;
 import framework.ui.Command;
-import framework.ui.UIControl;
+import framework.ui.UIController;
 
 public class AddCompanyAccountCommand implements Command {
 
-    public void execute(UIControl control) {
-        BankingAccountService.getInstance().createAccount(control.getAccountNumber(), control.getCustomer(), control.getAccountType());
+    public void execute(UIController uiController) {
+        BankingAccountService.getInstance()
+                .createAccount(
+                        uiController.getAccountNumber(),
+                        uiController.getCustomer(),
+                        uiController.getAccountType()
+                );
     }
 }

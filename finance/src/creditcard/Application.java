@@ -3,7 +3,7 @@ package creditcard;
 
 import creditcard.commands.*;
 import framework.ui.MainFrm;
-import framework.ui.UIControl;
+import framework.ui.UIController;
 
 import javax.swing.*;
 
@@ -12,7 +12,7 @@ public class Application {
     public static void main(String[] args){
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            UIControl frm = MainFrm.getInstance();
+            UIController frm = MainFrm.getInstance();
             frm.init("Credit Card Application", new CreditUIConfig());
 
             //commands

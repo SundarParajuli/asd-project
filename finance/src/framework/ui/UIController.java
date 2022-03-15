@@ -3,7 +3,7 @@ package framework.ui;
 
 import framework.Customer;
 
-public interface UIControl {
+public interface UIController {
     void init(String title, UIConfig config);
     void setAddPersonalAccountCommand(Command addAccountCommand);
     void setAddCompanyAccountCommand(Command addAccountCommand);

@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * A basic JFC based application.
  */
-public class MainFrm extends FormTemplate implements UIControl, AccountObserver
+public class MainFrm extends FormTemplate implements UIController, AccountObserver
 {
     /****
      * init variables in the object

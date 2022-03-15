@@ -1,5 +1,5 @@
 package framework.ui;
 
 public interface Command {
-    void execute(UIControl control);
+    void execute(UIController control);
 }

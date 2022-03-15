@@ -3,11 +3,11 @@ package creditcard.commands;
 
 import creditcard.CreditAccountService;
 import framework.ui.Command;
-import framework.ui.UIControl;
+import framework.ui.UIController;
 
 public class AddInterestCommand implements Command {
     @Override
-    public void execute(UIControl control) {
+    public void execute(UIController control) {
         CreditAccountService.getInstance().addInterest();
     }
 }

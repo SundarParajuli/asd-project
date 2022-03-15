@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class BankingAccountDAO implements AccountDAO {
     private static volatile BankingAccountDAO instance;
-    Collection<Account> accountlist = new ArrayList<>();
+    Collection<Account> accountList = new ArrayList<>();
 
     public static BankingAccountDAO getInstance() {
         if (instance == null) {
@@ -24,23 +24,23 @@ public class BankingAccountDAO implements AccountDAO {
 
     @Override
     public void saveAccount(Account account) {
-        accountlist.add(account);
+        accountList.add(account);
         System.out.println("Saving account " + account.getAccountNumber() + " for customer " + account.getCustomer().getName());
     }
 
     @Override
     public void updateAccount(Account account) {
-        Account accountexist = loadAccount(account.getAccountNumber());
-        if (accountexist != null) {
-            accountlist.remove(accountexist); // remove the old
-            accountlist.add(account); // add the new
+        Account oldAccount = loadAccount(account.getAccountNumber());
+        if (oldAccount != null) {
+            accountList.remove(oldAccount); // remove the old
+            accountList.add(account); // add the new
         }
         System.out.println("Updating account " + account.getAccountNumber() + " for customer " + account.getCustomer().getName());
     }
 
     @Override
     public Account loadAccount(String accountNumber) {
-        for (Account account : accountlist) {
+        for (Account account : accountList) {
             if (account.getAccountNumber() == accountNumber) {
                 return account;
             }
@@ -51,6 +51,6 @@ public class BankingAccountDAO implements AccountDAO {
 
     @Override
     public Collection<Account> getAccounts() {
-        return accountlist;
+        return accountList;
     }
 }
