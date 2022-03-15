@@ -11,15 +11,15 @@ public abstract class Account implements Consumer<AccountVisitor> {
     private Customer customer;
     private String accountNumber;
     private List<AccountEntry> accountEntries;
-    private InterestCalculator interestCalculator;
+    private InterestCalculationStrategy interestCalculationStrategy;
 
-    public Account(InterestCalculator interestCalculator) {
-        this.interestCalculator = interestCalculator;
+    public Account(InterestCalculationStrategy interestCalculationStrategy) {
+        this.interestCalculationStrategy = interestCalculationStrategy;
         this.accountEntries = new ArrayList<>();
     }
 
-    public void setInterestCalculator(InterestCalculator interestCalculator) {
-        this.interestCalculator = interestCalculator;
+    public void setInterestCalculator(InterestCalculationStrategy interestCalculationStrategy) {
+        this.interestCalculationStrategy = interestCalculationStrategy;
     }
 
     public abstract String getAccountType();
@@ -39,8 +39,8 @@ public abstract class Account implements Consumer<AccountVisitor> {
     }
 
     public void interest() {
-        if (interestCalculator != null) {
-            double interest = interestCalculator.calculateInterest(getBalance());
+        if (interestCalculationStrategy != null) {
+            double interest = interestCalculationStrategy.calculateInterest(getBalance());
             AccountEntry entry = new AccountEntry(interest, "interest", null);
             addAccountEntry(entry);
         }

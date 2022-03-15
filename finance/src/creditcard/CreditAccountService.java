@@ -4,9 +4,9 @@ package creditcard;
 
 
 import framework.observer.EmailSender;
-import creditcard.paymentCalculators.BronzePaymentCalculator;
-import creditcard.paymentCalculators.GoldPaymentCalculator;
-import creditcard.paymentCalculators.SilverPaymentCalculator;
+import creditcard.paymentCalculationStrategy.BronzePaymentCalculationStrategy;
+import creditcard.paymentCalculationStrategy.GoldPaymentCalculationStrategy;
+import creditcard.paymentCalculationStrategy.SilverPaymentCalculationStrategy;
 import framework.entity.Account;
 import framework.entity.AccountService;
 import framework.entity.Customer;
@@ -19,7 +19,7 @@ public class CreditAccountService extends AccountService {
     private static volatile  CreditAccountService instance;
 
     private CreditAccountService() {
-        super(new CreditAccountDAO());
+        super(CreditAccountDAO.getINSTANCE());
         this.registerObserver(new EmailSender(this));
         this.registerObserver(new SMSSender(this));
     }
@@ -38,13 +38,13 @@ public class CreditAccountService extends AccountService {
     public Account initAccount(String accountType, Customer customer) {
         CreditCardType type = CreditCardType.valueOf(accountType);
         if(type.equals(CreditCardType.BRONZE)){
-            return new CreditAccount(new BronzePaymentCalculator(), type);
+            return new CreditAccount(new BronzePaymentCalculationStrategy(), type);
         }
         if(type.equals(CreditCardType.SILVER)){
-            return new CreditAccount(new SilverPaymentCalculator(), type);
+            return new CreditAccount(new SilverPaymentCalculationStrategy(), type);
         }
         if(type.equals(CreditCardType.GOLD)){
-            return new CreditAccount(new GoldPaymentCalculator(), type);
+            return new CreditAccount(new GoldPaymentCalculationStrategy(), type);
         }
         throw new UnsupportedOperationException("Invalid Credit Card Type!");
     }

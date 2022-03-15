@@ -11,10 +11,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JDialog_AddPersonAct extends JDialog
+public class JDialog_AddPersonalAccount extends JDialog
 {
     private MainFrm parentframe;
-	List<JRadioButton> btnAccountTyps = new ArrayList<>();
+	List<JRadioButton> btnAccountTypes = new ArrayList<>();
 	JLabel JLabel1 = new JLabel();
 	JLabel JLabel2 = new JLabel();
 	JLabel JLabel3 = new JLabel();
@@ -34,7 +34,7 @@ public class JDialog_AddPersonAct extends JDialog
 	JTextField JTextField_ACNR = new JTextField();
 	JLabel JLabel8 = new JLabel();
     
-	public JDialog_AddPersonAct(MainFrm parent) {
+	public JDialog_AddPersonalAccount(MainFrm parent) {
 		super(parent);
 		parentframe=parent;
 		
@@ -53,43 +53,50 @@ public class JDialog_AddPersonAct extends JDialog
 		SymMouse aSymMouse = new SymMouse();
 		for (String actType: parentframe.getAccountTypes()) {
 			// Build account types radio buttons
-			JRadioButton chk = new JRadioButton();
-			chk.setText(actType);
-			chk.setActionCommand(actType);
-			chk.setBounds(36, yOffset,200,24);
-			getContentPane().add(chk);
-			chk.addMouseListener(aSymMouse);
-			btnAccountTyps.add(chk);
+			JRadioButton radioButton = new JRadioButton();
+			radioButton.setText(actType);
+			radioButton.setActionCommand(actType);
+			radioButton.setBounds(36, yOffset,200,24);
+			getContentPane().add(radioButton);
+			radioButton.addMouseListener(aSymMouse);
+			btnAccountTypes.add(radioButton);
 			yOffset += 24;
 		}
 		JLabel1.setText("Name");
 		getContentPane().add(JLabel1);
 		JLabel1.setForeground(Color.black);
 		JLabel1.setBounds(12,yOffset + 84,48,24);
+
 		JLabel2.setText("Street");
 		getContentPane().add(JLabel2);
 		JLabel2.setForeground(Color.black);
 		JLabel2.setBounds(12,yOffset + 108,48,24);
+
 		JLabel3.setText("City");
 		getContentPane().add(JLabel3);
 		JLabel3.setForeground(Color.black);
 		JLabel3.setBounds(12,yOffset + 132,48,24);
+
 		JLabel4.setText("State");
 		getContentPane().add(JLabel4);
 		JLabel4.setForeground(Color.black);
 		JLabel4.setBounds(12,yOffset + 156,48,24);
+
 		JLabel5.setText("Zip");
 		getContentPane().add(JLabel5);
 		JLabel5.setForeground(Color.black);
 		JLabel5.setBounds(12,yOffset + 180,48,24);
+
 		JLabel6.setText("Birthdate");
 		getContentPane().add(JLabel6);
 		JLabel6.setForeground(Color.black);
 		JLabel6.setBounds(12,yOffset + 204,96,24);
+
 		JLabel7.setText("Email");
 		getContentPane().add(JLabel7);
 		JLabel7.setForeground(Color.black);
 		JLabel7.setBounds(12,yOffset + 228,48,24);
+
 		getContentPane().add(JTextField_NAME);
 		JTextField_NAME.setBounds(84,yOffset + 84,156,20);
 		getContentPane().add(JTextField_CT);
@@ -118,19 +125,16 @@ public class JDialog_AddPersonAct extends JDialog
 		getContentPane().add(JLabel8);
 		JLabel8.setForeground(Color.black);
 		JLabel8.setBounds(12,yOffset + 60,48,24);
-		//}}
-	
-		//{{REGISTER_LISTENERS
+
 		SymAction lSymAction = new SymAction();
 		JButton_OK.addActionListener(lSymAction);
 		JButton_Cancel.addActionListener(lSymAction);
-		//}}
 	}
 
 	class SymMouse extends java.awt.event.MouseAdapter {
 		public void mouseClicked(java.awt.event.MouseEvent event) {
 			JRadioButton selectedBtn = (JRadioButton) event.getSource();
-			for (JRadioButton btn: btnAccountTyps) {
+			for (JRadioButton btn: btnAccountTypes) {
 				btn.setSelected(btn == selectedBtn);
 			}
 		}
@@ -143,7 +147,7 @@ public class JDialog_AddPersonAct extends JDialog
 			if (object == JButton_OK)
 				JButtonOK_actionPerformed(event);
 			else if (object == JButton_Cancel)
-				JButtonCalcel_actionPerformed(event);
+				btnCancelActionPerformed(event);
 		}
 	}
 
@@ -159,7 +163,7 @@ public class JDialog_AddPersonAct extends JDialog
 				LocalDate.parse(JTextField_BD.getText())
 		);
 		parentframe.setCustomer(person);
-		btnAccountTyps.stream().filter(JRadioButton::isSelected)
+		btnAccountTypes.stream().filter(JRadioButton::isSelected)
 				.findFirst()
 				.ifPresent(jRadioButton -> parentframe.setAccountType(jRadioButton.getText()));
 		parentframe.setAccountNumber(JTextField_ACNR.getText());
@@ -167,7 +171,7 @@ public class JDialog_AddPersonAct extends JDialog
        	dispose();
 	}
 
-	void JButtonCalcel_actionPerformed(java.awt.event.ActionEvent event) {
+	void btnCancelActionPerformed(java.awt.event.ActionEvent event) {
     //make this frame invisible if Cancel button is clicked
         dispose();
 	}

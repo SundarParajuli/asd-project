@@ -1,6 +1,6 @@
-package creditcard.paymentCalculators;
+package creditcard.paymentCalculationStrategy;
 
-public class GoldPaymentCalculator implements PaymentCalculator {
+public class GoldPaymentCalculationStrategy implements PaymentCalculationStrategy {
     @Override
     public double calculateDuePayment(double balance) {
         return balance * 0.1;

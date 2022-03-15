@@ -1,5 +1,5 @@
 package framework.entity;
 
-public interface InterestCalculator {
+public interface InterestCalculationStrategy {
     double calculateInterest(double balance);
 }

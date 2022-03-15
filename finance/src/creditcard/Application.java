@@ -12,19 +12,19 @@ public class Application {
     public static void main(String[] args){
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            UIController frm = MainFrm.getInstance();
-            frm.init("Credit Card Application", new CreditUIConfig());
+            UIController uiController = MainFrm.getInstance();
+            uiController.init("Credit Card Application", new CreditUIConfiguration());
 
             //commands
-            frm.setAddPersonalAccountCommand(new AddPersonalAccountCommand(CreditAccountService.getInstance()));
-            frm.setAddCompanyAccountCommand(new AddCompanyAccountCommand(CreditAccountService.getInstance()));
-            frm.setDepositCommand(new DepositAccountCommand(CreditAccountService.getInstance()));
-            frm.setWithdrawCommand(new WithdrawCommand(CreditAccountService.getInstance()));
-            frm.setAddInterestCommand(new AddInterestCommand(CreditAccountService.getInstance()));
-            frm.setReportCommand(new ReportCommand(CreditAccountService.getInstance()));
+            uiController.setAddPersonalAccountCommand(new AddPersonalAccountCommand(CreditAccountService.getInstance()));
+            uiController.setAddCompanyAccountCommand(new AddCompanyAccountCommand(CreditAccountService.getInstance()));
+            uiController.setDepositCommand(new DepositAccountCommand(CreditAccountService.getInstance()));
+            uiController.setWithdrawCommand(new WithdrawCommand(CreditAccountService.getInstance()));
+            uiController.setAddInterestCommand(new AddInterestCommand(CreditAccountService.getInstance()));
+            uiController.setReportCommand(new ReportCommand(CreditAccountService.getInstance()));
 
             //Create a new instance of our application's frame, and make it visible.
-            frm.setVisible(true);
+            uiController.setVisible(true);
         } catch (Throwable t) {
             t.printStackTrace();
             System.exit(1);

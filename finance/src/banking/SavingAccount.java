@@ -2,17 +2,17 @@ package banking;
 
 
 import framework.entity.Account;
-import framework.entity.InterestCalculator;
+import framework.entity.InterestCalculationStrategy;
 import framework.visitor.AccountVisitor;
 
 public class SavingAccount extends Account {
-    public SavingAccount(InterestCalculator interestCalculator) {
-        super(interestCalculator);
+    public SavingAccount(InterestCalculationStrategy interestCalculationStrategy) {
+        super(interestCalculationStrategy);
     }
 
     @Override
     public String getAccountType() {
-        return AccountTypes.Saving.name();
+        return AccountType.SAVING.name();
     }
 
     @Override

@@ -4,7 +4,7 @@ import framework.entity.Account;
 
 import java.util.Collection;
 
-public interface UIConfig {
+public interface UIConfiguration {
     Collection<String> getAccountTypes();
     Collection<String> getReportColumnNames();
     int getIdColumnIndex();

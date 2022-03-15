@@ -1,7 +1,7 @@
 package creditcard;
 
 
-import creditcard.paymentCalculators.PaymentCalculator;
+import creditcard.paymentCalculationStrategy.PaymentCalculationStrategy;
 import framework.entity.Account;
 import framework.entity.AccountEntry;
 import framework.visitor.AccountVisitor;
@@ -9,48 +9,48 @@ import framework.visitor.AccountVisitor;
 import java.time.LocalDate;
 
 public class CreditAccount extends Account {
-    PaymentCalculator paymentCalculator;
-    CreditCardType type;
-    public CreditAccount(PaymentCalculator paymentCalculator, CreditCardType type) {
+    PaymentCalculationStrategy paymentCalculationStrategy;
+    CreditCardType creditCardType;
+    public CreditAccount(PaymentCalculationStrategy paymentCalculationStrategy, CreditCardType creditCardType) {
         super(null);
-        this.paymentCalculator = paymentCalculator;
-        this.type = type;
+        this.paymentCalculationStrategy = paymentCalculationStrategy;
+        this.creditCardType = creditCardType;
     }
 
     public double getPrevBalance() {
-        LocalDate todaydate = LocalDate.now();
+        LocalDate currentDate = LocalDate.now();
         return this.getAccountEntries().stream()
-                .filter(accountEntry -> accountEntry.getDate().isBefore(todaydate.withDayOfMonth(1)))
+                .filter(accountEntry -> accountEntry.getDate().isBefore(currentDate.withDayOfMonth(1)))
                 .mapToDouble(AccountEntry::getAmount).sum();
     }
 
     public double getTotalCredit() {
-        LocalDate todaydate = LocalDate.now();
+        LocalDate currentDate = LocalDate.now();
         return this.getAccountEntries().stream()
-                .filter(accountEntry -> accountEntry.getDate().isAfter(todaydate.withDayOfMonth(1)))
+                .filter(accountEntry -> accountEntry.getDate().isAfter(currentDate.withDayOfMonth(1)))
                 .filter(accountEntry -> accountEntry.getAmount() < 0)
                 .mapToDouble(AccountEntry::getAmount).sum();
     }
 
     public double getTotalCharge() {
-        LocalDate todaydate = LocalDate.now();
+        LocalDate currentDate = LocalDate.now();
         return this.getAccountEntries().stream()
-                .filter(accountEntry -> accountEntry.getDate().isAfter(todaydate.withDayOfMonth(1)))
+                .filter(accountEntry -> accountEntry.getDate().isAfter(currentDate.withDayOfMonth(1)))
                 .filter(accountEntry -> accountEntry.getAmount() >= 0)
                 .mapToDouble(AccountEntry::getAmount).sum();
     }
 
     public double getNewBalance() {
-        return this.paymentCalculator.calculateBalance(getPrevBalance(), getTotalCredit(), getTotalCharge());
+        return this.paymentCalculationStrategy.calculateBalance(getPrevBalance(), getTotalCredit(), getTotalCharge());
     }
 
     public double getTotalDue() {
-        return this.paymentCalculator.calculateDuePayment(getNewBalance());
+        return this.paymentCalculationStrategy.calculateDuePayment(getNewBalance());
     }
 
     @Override
     public String getAccountType() {
-        return type.name();
+        return creditCardType.name();
     }
 
     @Override
