@@ -129,13 +129,10 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 			JOptionPane.showMessageDialog(null, "Please select account from the record");
 		   }
 		if (selection >= 0) {
-
-			 accountNumber = (String) model.getValueAt(selection, uiConfiguration.getIdColumnIndex());
-			openDialog(new JDialog_Deposit(myframe, accountNumber ),430, 15, 275, 200);
+			accountNumber = (String) model.getValueAt(selection, uiConfiguration.getIdColumnIndex());
+			openDialog(new JDialog_Deposit(myframe, accountNumber),430, 15, 275, 200);
 			this.depositCommand.execute(this);
 		}
-
-
 	};
 	private final ActionListener addInterest = (ActionListener) -> {
 		this.addInterestCommand.execute(this);
