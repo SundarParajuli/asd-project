@@ -23,7 +23,7 @@ public abstract class AccountService implements AccountObservable {
     }
 
     public final void createAccount(String accountNumber, Customer customer, String accountType) {
-        Account account = this.initAccount(accountType, customer);
+        Account account = this.createAccount(accountType, customer);
         account.setCustomer(customer);
         account.setAccountNumber(accountNumber);
         accountDAO.saveAccount(account);
@@ -31,7 +31,7 @@ public abstract class AccountService implements AccountObservable {
         notifyObservers("create");
     }
 
-    public abstract Account initAccount(String accountType, Customer customer);
+    public abstract Account createAccount(String accountType, Customer customer);
 
     public void deposit(String accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);

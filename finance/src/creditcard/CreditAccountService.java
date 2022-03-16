@@ -47,7 +47,7 @@ public class CreditAccountService extends AccountService {
     }
 
     @Override
-    public Account initAccount(String accountType, Customer customer) {
+    public Account createAccount(String accountType, Customer customer) {
         CreditCardType type = CreditCardType.valueOf(accountType);
         if (type.equals(CreditCardType.BRONZE)) {
             return new CreditAccount(new BronzePaymentCalculationStrategy(), type, new BronzeInterestStrategy());
