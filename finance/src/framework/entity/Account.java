@@ -5,6 +5,7 @@ import framework.visitor.AccountVisitor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public abstract class Account implements Consumer<AccountVisitor> {
@@ -34,7 +35,7 @@ public abstract class Account implements Consumer<AccountVisitor> {
     }
 
     public void withdraw(double amount) {
-        AccountEntry entry = new AccountEntry(-amount, "withdraw", null);
+        AccountEntry entry = new AccountEntry(amount, "withdraw", null);
         addAccountEntry(entry);
     }
 
@@ -44,7 +45,7 @@ public abstract class Account implements Consumer<AccountVisitor> {
             AccountEntry entry = new AccountEntry(interest, "interest", null);
             addAccountEntry(entry);
         }
-
+        System.out.println(getAccountNumber() + "\t" +getBalance());
     }
 
     private void addAccountEntry(AccountEntry entry) {
@@ -69,5 +70,18 @@ public abstract class Account implements Consumer<AccountVisitor> {
 
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return accountNumber.equals(account.accountNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountNumber);
     }
 }

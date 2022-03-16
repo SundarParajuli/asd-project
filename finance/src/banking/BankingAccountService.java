@@ -44,4 +44,14 @@ public class BankingAccountService extends AccountService {
         }
         return instance;
     }
+
+    @Override
+    public void deposit(String accountNumber, double amount) {
+        super.withdraw(accountNumber, amount);
+    }
+
+    @Override
+    public void withdraw(String accountNumber, double amount) {
+        super.withdraw(accountNumber, -amount);
+    }
 }

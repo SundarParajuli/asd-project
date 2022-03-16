@@ -4,13 +4,11 @@ package banking;
 import framework.entity.Account;
 import framework.entity.AccountDAO;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.*;
 
 public class BankingAccountDAO implements AccountDAO {
     private static volatile BankingAccountDAO INSTANCE;
-    Collection<Account> accountList = new ArrayList<>();
+    Map<String, Account> accountDB = new HashMap<>();
 
     public static BankingAccountDAO getINSTANCE() {
         if (INSTANCE == null) {
@@ -25,32 +23,22 @@ public class BankingAccountDAO implements AccountDAO {
 
     @Override
     public void saveAccount(Account account) {
-        accountList.add(account);
+        accountDB.put(account.getAccountNumber(), account);
         System.out.println("Saving account " + account.getAccountNumber() + " for customer " + account.getCustomer().getName());
     }
 
     @Override
     public void updateAccount(Account account) {
-        Account oldAccount = loadAccount(account.getAccountNumber());
-        if (oldAccount != null) {
-            accountList.remove(oldAccount);
-            accountList.add(account);
-        }
-        System.out.println("Updating account " + account.getAccountNumber() + " for customer " + account.getCustomer().getName());
+        accountDB.put(account.getAccountNumber(), account);
     }
 
     @Override
     public Account loadAccount(String accountNumber) {
-        for (Account account : accountList) {
-            if (Objects.equals(account.getAccountNumber(), accountNumber)) {
-                return account;
-            }
-        }
-        return null;
+        return accountDB.get(accountNumber);
     }
 
     @Override
-    public Collection<Account> getAccounts() {
-        return accountList;
+    public List<Account> getAccounts() {
+        return new ArrayList<>(accountDB.values());
     }
 }

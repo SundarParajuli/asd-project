@@ -1,6 +1,8 @@
 package framework.ui;
 
 
+import banking.BankingUIConfiguration;
+import creditcard.CreditUIConfiguration;
 import framework.entity.AccountObserver;
 import framework.entity.Account;
 import framework.entity.AccountService;
@@ -71,17 +73,34 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 
 	public void init(String title, UIConfiguration uiConfiguration) {
 		Map<String,ActionListener> buttons = new HashMap<>();
-		buttons.put("Add personal account",personalAccount);
-		buttons.put("Add company account",companyAccount);
-		buttons.put("Withdraw",withdraw);
-		buttons.put("Deposit",deposit);
-		buttons.put("Add Interest",addInterest);
-		buttons.put("Exit",exit);
-		this.uiConfiguration = uiConfiguration;
-		if (uiConfiguration.hasReport()) {
-			buttons.put("Generate Bill", generateBill);
+		if(uiConfiguration instanceof CreditUIConfiguration){
+
+			buttons.put("Add personal account",personalAccount);
+			buttons.put("Add company account",companyAccount);
+			buttons.put("Charge",withdraw);
+			buttons.put("Deposit",deposit);
+			buttons.put("Add Interest",addInterest);
+			buttons.put("Exit",exit);
+			this.uiConfiguration = uiConfiguration;
+			if (uiConfiguration.hasReport()) {
+				buttons.put("Generate Bill", generateBill);
+			}
+			this.accountTypes = this.uiConfiguration.getAccountTypes();
+		}else if(uiConfiguration instanceof BankingUIConfiguration){
+
+			buttons.put("Add personal account",personalAccount);
+			buttons.put("Add company account",companyAccount);
+			buttons.put("Withdraw",withdraw);
+			buttons.put("Deposit",deposit);
+			buttons.put("Add Interest",addInterest);
+			buttons.put("Exit",exit);
+			this.uiConfiguration = uiConfiguration;
+			if (uiConfiguration.hasReport()) {
+				buttons.put("Generate Bill", generateBill);
+			}
+			this.accountTypes = this.uiConfiguration.getAccountTypes();
 		}
-		this.accountTypes = this.uiConfiguration.getAccountTypes();
+
 		generateForm(title, uiConfiguration,buttons);
 	}
 
@@ -108,7 +127,7 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
 		if (selection >= 0) {
 			String accnr = (String) model.getValueAt(selection, uiConfiguration.getIdColumnIndex());
-			openDialog(new JDialog_Withdraw(myframe, accnr),430, 15, 275, 140);
+			openDialog(new JDialog_Withdraw(myframe, accnr),430, 15, 275, 200);
 			this.depositCommand.execute(this);
 		}
 	};
@@ -124,7 +143,7 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
 		if (selection >= 0){
 			String accnr = (String) model.getValueAt(selection, uiConfiguration.getIdColumnIndex());
-			openDialog(new JDialog_Withdraw(myframe, accnr),430, 15, 275, 140);
+			openDialog(new JDialog_Withdraw(myframe, accnr),430, 15, 275, 200);
 			this.withdrawCommand.execute(this);
 		}
 	};
@@ -237,7 +256,9 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 				model.removeRow(i);
 			}
 		}
-		this.subject.getAllAccounts().forEach(this::tableRow);
+		List<Account> accounts = this.subject.getAllAccounts();
+		accounts.sort((a1, a2) -> a1.getAccountNumber().compareTo(a2.getAccountNumber()));
+		accounts.forEach(this::tableRow);
 		System.out.println("Updating the table on the UI.");
 	}
 
@@ -279,7 +300,7 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 	}
 
 	public void openDialog(JDialog jDialog){
-		openDialog(jDialog, 450, 20, 300, 330);
+		openDialog(jDialog, 450, 20, 300, 450);
 	}
 	public void openDialog(JDialog jDialog, int x, int y, int width, int height){
 		jDialog.setBounds(x, y, width, height);

@@ -5,12 +5,11 @@ package creditcard;
 import framework.entity.Account;
 import framework.entity.AccountDAO;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 public class CreditAccountDAO implements AccountDAO {
     private static volatile CreditAccountDAO INSTANCE;
-    Collection<Account> accountList = new ArrayList<>();
+    Map<String, Account> accountDB = new HashMap<>();
     private CreditAccountDAO(){
 
     }
@@ -27,33 +26,23 @@ public class CreditAccountDAO implements AccountDAO {
 
     @Override
     public void saveAccount(Account account) {
-        accountList.add(account);
+        accountDB.put(account.getAccountNumber(), account);
         System.out.println("Saving account " + account.getAccountNumber() + " for customer " + account.getCustomer().getName());
     }
 
     @Override
     public void updateAccount(Account account) {
-        Account accountexist = loadAccount(account.getAccountNumber());
-        if (accountexist != null) {
-            accountList.remove(accountexist); // remove the old
-            accountList.add(account); // add the new
-        }
+        accountDB.put(account.getAccountNumber(), account);
         System.out.println("Updating account " + account.getAccountNumber() + " for customer " + account.getCustomer().getName());
     }
 
     @Override
     public Account loadAccount(String accountNumber) {
-        for (Account account : accountList) {
-            if (account.getAccountNumber() == accountNumber) {
-                return account;
-            }
-        }
-
-        return null;
+        return accountDB.get(accountNumber);
     }
 
     @Override
-    public Collection<Account> getAccounts() {
-        return accountList;
+    public List<Account> getAccounts() {
+        return new ArrayList<>(accountDB.values());
     }
 }
