@@ -13,9 +13,6 @@ import framework.observer.EmailSender;
 import framework.observer.SMSSender;
 import framework.visitor.ReportBuilderVisitor;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BankingAccountService extends AccountService {
     private static volatile BankingAccountService instance;

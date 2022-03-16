@@ -23,7 +23,6 @@ public class Application {
             uiController.setAddInterestCommand(new AddInterestCommand(CreditAccountService.getInstance()));
             uiController.setReportCommand(new ReportCommand(CreditAccountService.getInstance()));
 
-            //Create a new instance of our application's frame, and make it visible.
             uiController.setVisible(true);
         } catch (Throwable t) {
             t.printStackTrace();

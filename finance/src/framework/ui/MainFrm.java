@@ -13,14 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.*;
 
-/**
- * A basic JFC based application.
- */
 public class MainFrm extends FormTemplate implements UIController, AccountObserver
 {
-    /****
-     * init variables in the object
-     ****/
 	private Command addPersonalAccountCommand;
 	private Command addCompanyAccountCommand;
 	private Command reportCommand;
@@ -153,9 +147,9 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 	void exitApplication()
 	{
 		try {
-		    	this.setVisible(false);    // hide the Frame
-		    	this.dispose();            // free the system resources
-		    	System.exit(0);            // close the application
+		    	this.setVisible(false);
+		    	this.dispose();
+		    	System.exit(0);
 		} catch (Exception e) {
 		}
 	}

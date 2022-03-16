@@ -26,7 +26,6 @@ public class JDialog_AddCompanyAccount extends JDialog
 		SymMouse aSymMouse = new SymMouse();
 
 		for (String actType: parentFrame.getAccountTypes()) {
-			// Build account types radio buttons
 			JRadioButton chk = new JRadioButton();
 			chk.setText(actType);
 			chk.setActionCommand(actType);
@@ -135,7 +134,6 @@ public class JDialog_AddCompanyAccount extends JDialog
 	JButton JButton_Cancel = new JButton();
 	JLabel accountNumberLabel = new JLabel();
 	JTextField JTextField_ACNR = new JTextField();
-	//}}
 
 
 	class SymAction implements java.awt.event.ActionListener
