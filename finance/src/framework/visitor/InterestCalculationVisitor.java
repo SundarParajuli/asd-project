@@ -13,7 +13,7 @@ public class InterestCalculationVisitor implements AccountVisitor {
 
     @Override
     public void visit(Account account) {
-        account.interest();
+        account.addInterest();
         accountDAO.updateAccount(account);
     }
 }
