@@ -25,7 +25,7 @@ public class JDialog_Withdraw extends JDialog
 		setTitle("Withdraw");
 		setModal(true);
 		getContentPane().setLayout(null);
-		setSize(277,134);
+		setSize(277,200);
 		setVisible(false);
 		JLabel1.setText("Acc Nr");
 		getContentPane().add(JLabel1);

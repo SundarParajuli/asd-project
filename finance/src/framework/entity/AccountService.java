@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import framework.ui.MainFrm;
+import framework.visitor.InterestCalculationVisitor;
 
 public abstract class AccountService implements AccountObservable {
     private AccountDAO accountDAO;
@@ -55,11 +56,10 @@ public abstract class AccountService implements AccountObservable {
     }
 
     public void addInterest() {
-        Collection<String> actNums = getAllAccounts().stream().map(Account::getAccountNumber).collect(Collectors.toList());
-        for (String actNum : actNums) {
-            Account account = accountDAO.loadAccount(actNum);
-            account.interest();
-            accountDAO.updateAccount(account);
+        InterestCalculationVisitor interestCalculationVisitor = new InterestCalculationVisitor(accountDAO);
+        List<Account> accounts = getAllAccounts();
+        for(int i = 0; i < accounts.size(); i++){
+            accounts.get(i).accept(interestCalculationVisitor);
         }
         notifyObservers("interest");
     }
@@ -88,7 +88,7 @@ public abstract class AccountService implements AccountObservable {
         return accountDAO.loadAccount(accountNumber);
     }
 
-    public Collection<Account> getAllAccounts() {
+    public List<Account> getAllAccounts() {
         return accountDAO.getAccounts();
     }
 

@@ -4,6 +4,7 @@ package creditcard;
 import creditcard.paymentCalculationStrategy.PaymentCalculationStrategy;
 import framework.entity.Account;
 import framework.entity.AccountEntry;
+import framework.visitor.AccountVisitor;
 
 import java.time.LocalDate;
 
@@ -50,5 +51,10 @@ public class CreditAccount extends Account {
     @Override
     public String getAccountType() {
         return creditCardType.name();
+    }
+
+    @Override
+    public void accept(AccountVisitor accountVisitor) {
+        accountVisitor.visit(this);
     }
 }

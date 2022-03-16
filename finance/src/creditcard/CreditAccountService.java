@@ -34,6 +34,17 @@ public class CreditAccountService extends AccountService {
         }
         return instance;
     }
+
+    @Override
+    public void deposit(String accountNumber, double amount) {
+        super.withdraw(accountNumber, -amount);
+    }
+
+    @Override
+    public void withdraw(String accountNumber, double amount) {
+        super.withdraw(accountNumber, amount);
+    }
+
     @Override
     public Account initAccount(String accountType, Customer customer) {
         CreditCardType type = CreditCardType.valueOf(accountType);
