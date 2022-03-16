@@ -7,6 +7,7 @@ import framework.entity.AccountDAO;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 public class CreditAccountDAO implements AccountDAO {
     private static volatile CreditAccountDAO INSTANCE;
@@ -33,10 +34,10 @@ public class CreditAccountDAO implements AccountDAO {
 
     @Override
     public void updateAccount(Account account) {
-        Account accountexist = loadAccount(account.getAccountNumber());
-        if (accountexist != null) {
-            accountList.remove(accountexist); // remove the old
-            accountList.add(account); // add the new
+        Account oldAccount = loadAccount(account.getAccountNumber());
+        if (oldAccount != null) {
+            accountList.remove(oldAccount);
+            accountList.add(account);
         }
         System.out.println("Updating account " + account.getAccountNumber() + " for customer " + account.getCustomer().getName());
     }
@@ -44,7 +45,7 @@ public class CreditAccountDAO implements AccountDAO {
     @Override
     public Account loadAccount(String accountNumber) {
         for (Account account : accountList) {
-            if (account.getAccountNumber() == accountNumber) {
+            if (Objects.equals(account.getAccountNumber(), accountNumber)) {
                 return account;
             }
         }

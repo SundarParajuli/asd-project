@@ -12,6 +12,10 @@ public class BankingAccountDAO implements AccountDAO {
     private static volatile BankingAccountDAO INSTANCE;
     Collection<Account> accountList = new ArrayList<>();
 
+    private BankingAccountDAO(){
+
+    }
+
     public static BankingAccountDAO getINSTANCE() {
         if (INSTANCE == null) {
             synchronized (BankingAccountDAO.class) {

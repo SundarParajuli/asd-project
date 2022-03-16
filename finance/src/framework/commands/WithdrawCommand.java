@@ -15,9 +15,9 @@ public class WithdrawCommand implements Command {
 
 	
     @Override
-    public void execute(UIController control) {
-    	accountService.withdraw(control.getAccountNumber(), 
-    											Double.parseDouble(control.getAmount()));
+    public void execute(UIController uiController) {
+    	accountService.withdraw(uiController.getAccountNumber(),
+    											Double.parseDouble(uiController.getAmount()));
         
     }
 }
