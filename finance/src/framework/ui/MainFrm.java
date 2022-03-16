@@ -125,9 +125,12 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 	};
 	private final ActionListener deposit = (ActionListener) -> {
 		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
+		if(selection < 0) {
+			JOptionPane.showMessageDialog(null, "Please select account from the record");
+		   }
 		if (selection >= 0) {
 			String accnr = (String) model.getValueAt(selection, uiConfiguration.getIdColumnIndex());
-			openDialog(new JDialog_Withdraw(myframe, accnr),430, 15, 275, 200);
+			openDialog(new JDialog_Deposit(myframe, accnr),430, 15, 275, 200);
 			this.depositCommand.execute(this);
 		}
 	};
@@ -141,6 +144,9 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 	};
 	private final ActionListener withdraw = (ActionListener) -> {
 		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
+		if(selection < 0){
+			JOptionPane.showMessageDialog(null, "Please select account from the record");
+		}
 		if (selection >= 0){
 			String accnr = (String) model.getValueAt(selection, uiConfiguration.getIdColumnIndex());
 			openDialog(new JDialog_Withdraw(myframe, accnr),430, 15, 275, 200);
