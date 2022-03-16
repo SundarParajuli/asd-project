@@ -18,7 +18,7 @@ public class EmailSender implements AccountObserver {
             if (account.getCustomer() instanceof Personal && (amount <= 500 && account.getBalance() > 0)) {
                 return;
             }
-            System.out.println("Sending email to: " + account.getCustomer().getEmail() + " Operation in account (" + account.getAccountNumber() + ") amount = \n" + amount + " - " + actsvc.getOperation());
+            System.out.println("Sending email: " + account.getCustomer().getEmail() + " Operation in account (" + account.getAccountNumber() + ") amount = \n" + amount + " - " + actsvc.getOperation());
         }
     }
 }
