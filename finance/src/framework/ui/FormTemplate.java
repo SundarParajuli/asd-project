@@ -8,16 +8,16 @@ import java.util.Collection;
 import java.util.Map;
 
 public abstract class FormTemplate extends JFrame {
-    protected boolean newaccount;
+    protected boolean newAccount;
     protected DefaultTableModel model;
     protected JTable JTable1;
     protected JPanel JPanel1;
     protected JScrollPane JScrollPane1;
-    protected Object[] rowdata;
+    protected Object[] rowData;
 
-    public final void generateForm(String title, UIConfig uiConfig, Map<String, ActionListener> buttons){
+    public final void generateForm(String title, UIConfiguration uiConfiguration, Map<String, ActionListener> buttons){
 //        initCommands();
-        setupJPanel(title,uiConfig.getReportColumnNames());
+        setupJPanel(title, uiConfiguration.getReportColumnNames());
         pSetSize();
         panelBounds();
         scrollPanelBounds();
@@ -42,8 +42,8 @@ public abstract class FormTemplate extends JFrame {
             model.addColumn(cols);
         }
 
-        rowdata = new Object[columns.size()];
-        newaccount=false;
+        rowData = new Object[columns.size()];
+        newAccount =false;
         JPanel1.add(JScrollPane1);
         JScrollPane1.getViewport().add(JTable1);
 
@@ -60,12 +60,7 @@ public abstract class FormTemplate extends JFrame {
         }
 
     }
-    private void initCommands(Collection<Command> commands){
-        for (Command command :
-                commands) {
-           command = NoCommand.getInstance();
-        }
-    }
+
     protected abstract void notCommon();
     protected abstract void setBtnBounds(JButton btn, int y);
     protected abstract void panelBounds();

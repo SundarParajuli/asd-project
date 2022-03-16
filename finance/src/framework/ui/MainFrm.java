@@ -1,9 +1,10 @@
 package framework.ui;
 
 
+import banking.BankingUIConfiguration;
+import creditcard.CreditUIConfiguration;
 import framework.entity.AccountObserver;
 import framework.entity.Account;
-import framework.entity.AccountOperation;
 import framework.entity.AccountService;
 import framework.entity.Customer;
 
@@ -15,7 +16,7 @@ import java.util.*;
 /**
  * A basic JFC based application.
  */
-public class MainFrm extends FormTemplate implements UIControl, AccountObserver
+public class MainFrm extends FormTemplate implements UIController, AccountObserver
 {
     /****
      * init variables in the object
@@ -32,9 +33,9 @@ public class MainFrm extends FormTemplate implements UIControl, AccountObserver
 	private String accountNumber;
 	private String accountType;
 
-	JPanel JPanel1 = new JPanel();
+	JPanel JPanel = new JPanel();
 
-	String accountnr;
+	String accountNmbr;
 	String clientName;
 	String street;
 	String city;
@@ -44,7 +45,7 @@ public class MainFrm extends FormTemplate implements UIControl, AccountObserver
     boolean newaccount;
 
     private AccountService subject;
-    private UIConfig uiConfig;
+    private UIConfiguration uiConfiguration;
     private static volatile MainFrm myframe;
 
 
@@ -70,20 +71,37 @@ public class MainFrm extends FormTemplate implements UIControl, AccountObserver
 		return myframe;
 	}
 
-	public void init(String title, UIConfig uiConfig) {
+	public void init(String title, UIConfiguration uiConfiguration) {
 		Map<String,ActionListener> buttons = new HashMap<>();
-		buttons.put("Add personal account",personalAccount);
-		buttons.put("Add company account",companyAccount);
-		buttons.put("Withdraw",withdraw);
-		buttons.put("Deposit",deposit);
-		buttons.put("Add Interest",addInterest);
-		buttons.put("Exit",exit);
-		this.uiConfig = uiConfig;
-		if (uiConfig.hasReport()) {
-			buttons.put("Generate Bill", generateBill);
+		if(uiConfiguration instanceof CreditUIConfiguration){
+
+			buttons.put("Add personal account",personalAccount);
+			buttons.put("Add company account",companyAccount);
+			buttons.put("Charge",withdraw);
+			buttons.put("Deposit",deposit);
+			buttons.put("Add Interest",addInterest);
+			buttons.put("Exit",exit);
+			this.uiConfiguration = uiConfiguration;
+			if (uiConfiguration.hasReport()) {
+				buttons.put("Generate Bill", generateBill);
+			}
+			this.accountTypes = this.uiConfiguration.getAccountTypes();
+		}else if(uiConfiguration instanceof BankingUIConfiguration){
+
+			buttons.put("Add personal account",personalAccount);
+			buttons.put("Add company account",companyAccount);
+			buttons.put("Withdraw",withdraw);
+			buttons.put("Deposit",deposit);
+			buttons.put("Add Interest",addInterest);
+			buttons.put("Exit",exit);
+			this.uiConfiguration = uiConfiguration;
+			if (uiConfiguration.hasReport()) {
+				buttons.put("Generate Bill", generateBill);
+			}
+			this.accountTypes = this.uiConfiguration.getAccountTypes();
 		}
-		this.accountTypes = this.uiConfig.getAccountTypes();
-		generateForm(title,uiConfig,buttons);
+
+		generateForm(title, uiConfiguration,buttons);
 	}
 
 	public String getAmount() {
@@ -94,13 +112,13 @@ public class MainFrm extends FormTemplate implements UIControl, AccountObserver
 		System.exit(0);
 	};
 	private final ActionListener personalAccount = (ActionListener) -> {
-		openDialog(new JDialog_AddPersonAct(myframe));
+		openDialog(new JDialog_AddPersonalAccount(myframe));
 		if (newaccount) {
 			this.addPersonalAccountCommand.execute(this);
 		}
 	};
 	private final ActionListener companyAccount = (ActionListener) -> {
-		openDialog(new JDialog_AddCompAcc(myframe));
+		openDialog(new JDialog_AddCompanyAccount(myframe));
 		if (newaccount) {
 			this.addCompanyAccountCommand.execute(this);
 		}
@@ -108,8 +126,8 @@ public class MainFrm extends FormTemplate implements UIControl, AccountObserver
 	private final ActionListener deposit = (ActionListener) -> {
 		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
 		if (selection >= 0) {
-			String accnr = (String) model.getValueAt(selection, uiConfig.getIdColumnIndex());
-			openDialog(new JDialog_Withdraw(myframe, accnr),430, 15, 275, 140);
+			String accnr = (String) model.getValueAt(selection, uiConfiguration.getIdColumnIndex());
+			openDialog(new JDialog_Withdraw(myframe, accnr),430, 15, 275, 200);
 			this.depositCommand.execute(this);
 		}
 	};
@@ -124,8 +142,8 @@ public class MainFrm extends FormTemplate implements UIControl, AccountObserver
 	private final ActionListener withdraw = (ActionListener) -> {
 		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
 		if (selection >= 0){
-			String accnr = (String) model.getValueAt(selection, uiConfig.getIdColumnIndex());
-			openDialog(new JDialog_Withdraw(myframe, accnr),430, 15, 275, 140);
+			String accnr = (String) model.getValueAt(selection, uiConfiguration.getIdColumnIndex());
+			openDialog(new JDialog_Withdraw(myframe, accnr),430, 15, 275, 200);
 			this.withdrawCommand.execute(this);
 		}
 	};
@@ -227,17 +245,20 @@ public class MainFrm extends FormTemplate implements UIControl, AccountObserver
 	}
 
 	@Override
-	public void update() {
-		if (this.subject.getOperation() == AccountOperation.REPORT) {
+	public void update(String type) {
+		if (type.equals("report")) {
 			return;
 		}
+
 		// reload accounts to view
 		if (model.getRowCount() > 0) {
 			for (int i = model.getRowCount() - 1; i > -1; i--) {
 				model.removeRow(i);
 			}
 		}
-		this.subject.getAllAccounts().forEach(this::tableRow);
+		List<Account> accounts = this.subject.getAllAccounts();
+		accounts.sort((a1, a2) -> a1.getAccountNumber().compareTo(a2.getAccountNumber()));
+		accounts.forEach(this::tableRow);
 		System.out.println("Updating the table on the UI.");
 	}
 
@@ -273,13 +294,13 @@ public class MainFrm extends FormTemplate implements UIControl, AccountObserver
 	}
 
 	private void tableRow(Account act){
-		model.addRow(this.uiConfig.buildRow(act));
+		model.addRow(this.uiConfiguration.buildRow(act));
 		JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
 		newaccount = false;
 	}
 
 	public void openDialog(JDialog jDialog){
-		openDialog(jDialog, 450, 20, 300, 330);
+		openDialog(jDialog, 450, 20, 300, 450);
 	}
 	public void openDialog(JDialog jDialog, int x, int y, int width, int height){
 		jDialog.setBounds(x, y, width, height);

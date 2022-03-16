@@ -4,7 +4,7 @@ package banking;
 
 import framework.commands.*;
 import framework.ui.MainFrm;
-import framework.ui.UIControl;
+import framework.ui.UIController;
 
 import javax.swing.*;
 
@@ -12,18 +12,18 @@ public class Application {
     public static void main(String[] args){
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            UIControl frm = MainFrm.getInstance();
-            frm.init("Banking Application", new BankingUIConfig());
+            UIController uiController = MainFrm.getInstance();
+            uiController.init("Banking Application", new BankingUIConfiguration());
 
             //commands
-            frm.setAddPersonalAccountCommand(new AddPersonalAccountCommand(BankingAccountService.getInstance()));
-            frm.setAddCompanyAccountCommand(new AddCompanyAccountCommand(BankingAccountService.getInstance()));
-            frm.setDepositCommand(new DepositAccountCommand(BankingAccountService.getInstance()));
-            frm.setWithdrawCommand(new WithdrawCommand(BankingAccountService.getInstance()));
-            frm.setAddInterestCommand(new AddInterestCommand(BankingAccountService.getInstance()));
+            uiController.setAddPersonalAccountCommand(new AddPersonalAccountCommand(BankingAccountService.getInstance()));
+            uiController.setAddCompanyAccountCommand(new AddCompanyAccountCommand(BankingAccountService.getInstance()));
+            uiController.setDepositCommand(new DepositAccountCommand(BankingAccountService.getInstance()));
+            uiController.setWithdrawCommand(new WithdrawCommand(BankingAccountService.getInstance()));
+            uiController.setAddInterestCommand(new AddInterestCommand(BankingAccountService.getInstance()));
 
             //Create a new instance of our application's frame, and make it visible.
-            frm.setVisible(true);
+            uiController.setVisible(true);
         } catch (Throwable t) {
             t.printStackTrace();
             System.exit(1);

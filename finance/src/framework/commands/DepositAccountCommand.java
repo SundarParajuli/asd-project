@@ -2,7 +2,7 @@ package framework.commands;
 
 import framework.entity.AccountService;
 import framework.ui.Command;
-import framework.ui.UIControl;
+import framework.ui.UIController;
 
 public class DepositAccountCommand implements Command {
 	
@@ -15,9 +15,9 @@ public class DepositAccountCommand implements Command {
 
 	
     @Override
-    public void execute(UIControl control) {
-    	accountService.deposit(control.getAccountNumber(),
-							Double.parseDouble(control.getAmount()));
+    public void execute(UIController uiController) {
+    	accountService.deposit(uiController.getAccountNumber(),
+							Double.parseDouble(uiController.getAmount()));
         
     }
 }

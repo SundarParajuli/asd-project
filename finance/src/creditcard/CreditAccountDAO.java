@@ -5,53 +5,44 @@ package creditcard;
 import framework.entity.Account;
 import framework.entity.AccountDAO;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 public class CreditAccountDAO implements AccountDAO {
-    private static volatile CreditAccountDAO instance;
-    Collection<Account> accountlist = new ArrayList<>();
+    private static volatile CreditAccountDAO INSTANCE;
+    Map<String, Account> accountDB = new HashMap<>();
+    private CreditAccountDAO(){
 
-    public static CreditAccountDAO getInstance() {
-        if (instance == null) {
+    }
+    public static CreditAccountDAO getINSTANCE() {
+        if (INSTANCE == null) {
             synchronized (CreditAccountDAO.class) {
-                if (instance == null) {
-                    instance = new CreditAccountDAO();
+                if (INSTANCE == null) {
+                    INSTANCE = new CreditAccountDAO();
                 }
             }
         }
-        return instance;
+        return INSTANCE;
     }
 
     @Override
     public void saveAccount(Account account) {
-        accountlist.add(account);
+        accountDB.put(account.getAccountNumber(), account);
         System.out.println("Saving account " + account.getAccountNumber() + " for customer " + account.getCustomer().getName());
     }
 
     @Override
     public void updateAccount(Account account) {
-        Account accountexist = loadAccount(account.getAccountNumber());
-        if (accountexist != null) {
-            accountlist.remove(accountexist); // remove the old
-            accountlist.add(account); // add the new
-        }
+        accountDB.put(account.getAccountNumber(), account);
         System.out.println("Updating account " + account.getAccountNumber() + " for customer " + account.getCustomer().getName());
     }
 
     @Override
     public Account loadAccount(String accountNumber) {
-        for (Account account : accountlist) {
-            if (account.getAccountNumber() == accountNumber) {
-                return account;
-            }
-        }
-
-        return null;
+        return accountDB.get(accountNumber);
     }
 
     @Override
-    public Collection<Account> getAccounts() {
-        return accountlist;
+    public List<Account> getAccounts() {
+        return new ArrayList<>(accountDB.values());
     }
 }

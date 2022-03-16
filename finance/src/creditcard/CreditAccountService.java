@@ -4,13 +4,13 @@ package creditcard;
 
 
 import framework.observer.EmailSender;
-import creditcard.paymentCalculators.BronzePaymentCalculator;
-import creditcard.paymentCalculators.GoldPaymentCalculator;
-import creditcard.paymentCalculators.SilverPaymentCalculator;
+import creditcard.paymentCalculationStrategy.BronzePaymentCalculationStrategy;
+import creditcard.paymentCalculationStrategy.GoldPaymentCalculationStrategy;
+import creditcard.paymentCalculationStrategy.SilverPaymentCalculationStrategy;
 import framework.entity.Account;
-import framework.entity.AccountOperation;
 import framework.entity.AccountService;
 import framework.entity.Customer;
+import framework.observer.SMSSender;
 
 import java.time.LocalDate;
 
@@ -19,8 +19,9 @@ public class CreditAccountService extends AccountService {
     private static volatile  CreditAccountService instance;
 
     private CreditAccountService() {
-        super(new CreditAccountDAO());
+        super(CreditAccountDAO.getINSTANCE());
         this.registerObserver(new EmailSender(this));
+        this.registerObserver(new SMSSender(this));
     }
 
     public static CreditAccountService getInstance() {
@@ -33,17 +34,28 @@ public class CreditAccountService extends AccountService {
         }
         return instance;
     }
+
+    @Override
+    public void deposit(String accountNumber, double amount) {
+        super.withdraw(accountNumber, -amount);
+    }
+
+    @Override
+    public void withdraw(String accountNumber, double amount) {
+        super.withdraw(accountNumber, amount);
+    }
+
     @Override
     public Account initAccount(String accountType, Customer customer) {
         CreditCardType type = CreditCardType.valueOf(accountType);
         if(type.equals(CreditCardType.BRONZE)){
-            return new CreditAccount(new BronzePaymentCalculator(), type);
+            return new CreditAccount(new BronzePaymentCalculationStrategy(), type);
         }
         if(type.equals(CreditCardType.SILVER)){
-            return new CreditAccount(new SilverPaymentCalculator(), type);
+            return new CreditAccount(new SilverPaymentCalculationStrategy(), type);
         }
         if(type.equals(CreditCardType.GOLD)){
-            return new CreditAccount(new GoldPaymentCalculator(), type);
+            return new CreditAccount(new GoldPaymentCalculationStrategy(), type);
         }
         throw new UnsupportedOperationException("Invalid Credit Card Type!");
     }
@@ -73,7 +85,6 @@ public class CreditAccountService extends AccountService {
             billstring += "\r\n";
         }
         setReport(billstring);
-        super.operation = AccountOperation.REPORT;
-        notifyObservers();
+        notifyObservers("report");
     }
 }
