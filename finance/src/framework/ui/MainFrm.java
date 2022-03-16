@@ -80,9 +80,11 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 			buttons.put("Charge",withdraw);
 			buttons.put("Deposit",deposit);
 			buttons.put("Add Interest",addInterest);
-			buttons.put("Generate Report", generateReport);
 			buttons.put("Exit",exit);
 			this.uiConfiguration = uiConfiguration;
+			if (uiConfiguration.hasReport()) {
+				buttons.put("Generate Bill", generateBill);
+			}
 			this.accountTypes = this.uiConfiguration.getAccountTypes();
 		}else if(uiConfiguration instanceof BankingUIConfiguration){
 
@@ -91,9 +93,11 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 			buttons.put("Withdraw",withdraw);
 			buttons.put("Deposit",deposit);
 			buttons.put("Add Interest",addInterest);
-			buttons.put("Generate Report", generateReport);
 			buttons.put("Exit",exit);
 			this.uiConfiguration = uiConfiguration;
+			if (uiConfiguration.hasReport()) {
+				buttons.put("Generate Bill", generateBill);
+			}
 			this.accountTypes = this.uiConfiguration.getAccountTypes();
 		}
 
@@ -121,8 +125,11 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 	};
 	private final ActionListener deposit = (ActionListener) -> {
 		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
+		if(selection < 0) {
+			JOptionPane.showMessageDialog(null, "Please select account from the record");
+		   }
 		if (selection >= 0) {
-			accountNumber = (String) model.getValueAt(selection, 0);
+			accountNumber = (String) model.getValueAt(selection, uiConfiguration.getIdColumnIndex());
 			openDialog(new JDialog_Deposit(myframe, accountNumber),430, 15, 275, 200);
 			this.depositCommand.execute(this);
 		}
@@ -131,15 +138,18 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 		this.addInterestCommand.execute(this);
 		JOptionPane.showMessageDialog(null, "Add interest to all accounts", "Add interest to all accounts", JOptionPane.WARNING_MESSAGE);
 	};
-	private final ActionListener generateReport = (ActionListener) -> {
+	private final ActionListener generateBill = (ActionListener) -> {
 		this.reportCommand.execute(this);
-		openDialog(new JDialogGenBill(myframe),450, 20, 600, 650);
+		openDialog(new JDialogGenBill(myframe),450, 20, 400, 350);
 	};
 	private final ActionListener withdraw = (ActionListener) -> {
 		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
+		if(selection < 0){
+			JOptionPane.showMessageDialog(null, "Please select account from the record");
+		}
 		if (selection >= 0){
-			String accnr = (String) model.getValueAt(selection, uiConfiguration.getIdColumnIndex());
-			openDialog(new JDialog_Withdraw(myframe, accnr),430, 15, 275, 200);
+			accountNumber = (String) model.getValueAt(selection, uiConfiguration.getIdColumnIndex());
+			openDialog(new JDialog_Withdraw(myframe, accountNumber),430, 15, 275, 200);
 			this.withdrawCommand.execute(this);
 		}
 	};

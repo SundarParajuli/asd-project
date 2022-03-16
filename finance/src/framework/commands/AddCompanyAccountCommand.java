@@ -12,8 +12,8 @@ public class AddCompanyAccountCommand implements Command {
 		this.accountService = accountService;
 	}
 
-	public void execute(UIController control) {
-		accountService.createAccount(control.getAccountNumber(), 
-							control.getCustomer(), control.getAccountType());
+	public void execute(UIController uiController) {
+		accountService.createAccount(uiController.getAccountNumber(),
+							uiController.getCustomer(), uiController.getAccountType());
 		}
 }

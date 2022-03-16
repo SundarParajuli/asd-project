@@ -10,6 +10,10 @@ public class BankingAccountDAO implements AccountDAO {
     private static volatile BankingAccountDAO INSTANCE;
     Map<String, Account> accountDB = new HashMap<>();
 
+    private BankingAccountDAO(){
+
+    }
+
     public static BankingAccountDAO getINSTANCE() {
         if (INSTANCE == null) {
             synchronized (BankingAccountDAO.class) {

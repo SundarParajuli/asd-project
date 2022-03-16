@@ -11,7 +11,7 @@ public class SMSSender implements AccountObserver {
 
     @Override
     public void update(String type) {
-        if (type.equals("withdraw") || type.equals("deposit")) {
+        if (type.equalsIgnoreCase("withdraw")|| type.equalsIgnoreCase("deposit")) {
             Account account = accountService.getChangedAccount();
             double amount = accountService.getChangedAmount();
             if (account.getCustomer() instanceof Personal && (amount <= 500 && account.getBalance() > 0)) {

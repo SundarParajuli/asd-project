@@ -5,6 +5,6 @@ import framework.entity.InterestCalculationStrategy;
 public class PersonalSavingInterestStrategy implements InterestCalculationStrategy {
     @Override
     public double calculateInterest(double balance) {
-        return balance * 0.10;
+        return balance * 0.1;
     }
 }

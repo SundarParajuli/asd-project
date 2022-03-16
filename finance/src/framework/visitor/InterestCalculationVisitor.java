@@ -18,19 +18,19 @@ public class InterestCalculationVisitor implements AccountVisitor {
 
     @Override
     public void visit(CheckingAccount account) {
-        account.interest();
+        account.addInterest();
         accountDAO.updateAccount(account);
     }
 
     @Override
     public void visit(SavingAccount account) {
-        account.interest();
+        account.addInterest();
         accountDAO.updateAccount(account);
     }
 
     @Override
     public void visit(CreditAccount account) {
-        account.interest();
+        account.addInterest();
         accountDAO.updateAccount(account);
     }
 }

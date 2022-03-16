@@ -16,7 +16,7 @@ public class ReportCommand implements Command {
 
 	
     @Override
-    public void execute(UIController control) {
+    public void execute(UIController uiController) {
     	accountService.buildReport();
     }
 }

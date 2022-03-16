@@ -15,9 +15,9 @@ public class DepositAccountCommand implements Command {
 
 	
     @Override
-    public void execute(UIController control) {
-    	accountService.deposit(control.getAccountNumber(),
-							Double.parseDouble(control.getAmount()));
+    public void execute(UIController uiController) {
+    	accountService.deposit(uiController.getAccountNumber(),
+							Double.parseDouble(uiController.getAmount()));
         
     }
 }

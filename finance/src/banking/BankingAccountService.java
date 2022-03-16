@@ -27,7 +27,7 @@ public class BankingAccountService extends AccountService {
     }
 
     @Override
-    public Account initAccount(String accountType, Customer customer) {
+    public Account createAccount(String accountType, Customer customer) {
         if (customer instanceof Personal) {
             if (AccountType.valueOf(accountType) == AccountType.CHECKING) {
                 return new CheckingAccount(new PersonalCheckingInterestStrategy());
@@ -53,7 +53,7 @@ public class BankingAccountService extends AccountService {
 
     @Override
     public void deposit(String accountNumber, double amount) {
-        super.withdraw(accountNumber, amount);
+        super.deposit(accountNumber, amount);
     }
 
     @Override
