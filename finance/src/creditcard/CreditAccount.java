@@ -4,17 +4,20 @@ package creditcard;
 import creditcard.paymentCalculationStrategy.PaymentCalculationStrategy;
 import framework.entity.Account;
 import framework.entity.AccountEntry;
+import framework.entity.InterestCalculationStrategy;
 import framework.visitor.AccountVisitor;
 
 import java.time.LocalDate;
 
 public class CreditAccount extends Account {
     PaymentCalculationStrategy paymentCalculationStrategy;
+    InterestCalculationStrategy interestCalculationStrategy;
     CreditCardType creditCardType;
-    public CreditAccount(PaymentCalculationStrategy paymentCalculationStrategy, CreditCardType creditCardType) {
-        super(null);
+    public CreditAccount(PaymentCalculationStrategy paymentCalculationStrategy, CreditCardType creditCardType,InterestCalculationStrategy interestCalculationStrategy) {
+        super(interestCalculationStrategy);
         this.paymentCalculationStrategy = paymentCalculationStrategy;
         this.creditCardType = creditCardType;
+        this.interestCalculationStrategy = interestCalculationStrategy;
     }
 
     public double getPrevBalance() {

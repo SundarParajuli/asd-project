@@ -39,7 +39,7 @@ public abstract class Account implements Consumer<AccountVisitor> {
         addAccountEntry(entry);
     }
 
-    public void interest() {
+    public void addInterest() {
         if (interestCalculationStrategy != null) {
             double interest = interestCalculationStrategy.calculateInterest(getBalance());
             AccountEntry entry = new AccountEntry(interest, "interest", null);

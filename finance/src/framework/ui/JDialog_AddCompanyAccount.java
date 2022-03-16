@@ -10,12 +10,12 @@ import java.util.List;
 
 public class JDialog_AddCompanyAccount extends JDialog
 {
-    private MainFrm parentframe;
+    private MainFrm parentFrame;
 	List<JRadioButton> btnAccountTypes = new ArrayList<>();
 	public JDialog_AddCompanyAccount(MainFrm parent)
 	{
 		super(parent);
-		parentframe=parent;
+		parentFrame =parent;
 
 		setTitle("Add company account");
 		setModal(true);
@@ -25,7 +25,7 @@ public class JDialog_AddCompanyAccount extends JDialog
 		int yOffset = 0;
 		SymMouse aSymMouse = new SymMouse();
 
-		for (String actType: parentframe.getAccountTypes()) {
+		for (String actType: parentFrame.getAccountTypes()) {
 			// Build account types radio buttons
 			JRadioButton chk = new JRadioButton();
 			chk.setText(actType);
@@ -162,12 +162,12 @@ public class JDialog_AddCompanyAccount extends JDialog
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
-       parentframe.accountNmbr =JTextField_ACNR.getText();
-       parentframe.clientName=JTextField_NAME.getText();
-       parentframe.street=JTextField_STR.getText();
-       parentframe.city=JTextField_CT.getText();
-       parentframe.zip=JTextField_ZIP.getText();
-       parentframe.state=JTextField_ST.getText();
+       parentFrame.accountNmbr =JTextField_ACNR.getText();
+       parentFrame.clientName=JTextField_NAME.getText();
+       parentFrame.street=JTextField_STR.getText();
+       parentFrame.city=JTextField_CT.getText();
+       parentFrame.zip=JTextField_ZIP.getText();
+       parentFrame.state=JTextField_ST.getText();
 
 
 		Company company = new Company(
@@ -180,12 +180,12 @@ public class JDialog_AddCompanyAccount extends JDialog
 				JTextField_EM.getText(),
 				Integer.parseInt(JTextField_NoOfEmp.getText())
 		);
-		parentframe.setCustomer(company);
+		parentFrame.setCustomer(company);
 		btnAccountTypes.stream().filter(JRadioButton::isSelected)
 				.findFirst()
-				.ifPresent(jRadioButton -> parentframe.setAccountType(jRadioButton.getText()));
-		parentframe.setAccountNumber(JTextField_ACNR.getText());
-		parentframe.newaccount = true;
+				.ifPresent(jRadioButton -> parentFrame.setAccountType(jRadioButton.getText()));
+		parentFrame.setAccountNumber(JTextField_ACNR.getText());
+		parentFrame.newaccount = true;
 		dispose();
 	}
 

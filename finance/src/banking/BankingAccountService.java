@@ -47,7 +47,7 @@ public class BankingAccountService extends AccountService {
 
     @Override
     public void deposit(String accountNumber, double amount) {
-        super.withdraw(accountNumber, amount);
+        super.deposit(accountNumber, amount);
     }
 
     @Override
