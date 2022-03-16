@@ -5,7 +5,8 @@ import framework.ui.Command;
 import framework.ui.UIController;
 
 public class ReportCommand implements Command {
-	
+
+
 
 	private AccountService accountService;
 
@@ -17,6 +18,5 @@ public class ReportCommand implements Command {
     @Override
     public void execute(UIController control) {
     	accountService.buildReport();
-        
     }
 }

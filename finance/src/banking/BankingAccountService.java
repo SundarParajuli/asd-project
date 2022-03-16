@@ -4,12 +4,18 @@ import banking.interestCalculationStrategy.CompanyCheckingInterestStrategy;
 import banking.interestCalculationStrategy.CompanySavingInterestStrategy;
 import banking.interestCalculationStrategy.PersonalCheckingInterestStrategy;
 import banking.interestCalculationStrategy.PersonalSavingInterestStrategy;
+import creditcard.CreditAccount;
 import framework.entity.Account;
 import framework.entity.AccountService;
 import framework.entity.Customer;
 import framework.entity.Personal;
 import framework.observer.EmailSender;
 import framework.observer.SMSSender;
+import framework.visitor.ReportBuilderVisitor;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BankingAccountService extends AccountService {
     private static volatile BankingAccountService instance;
@@ -54,4 +60,16 @@ public class BankingAccountService extends AccountService {
     public void withdraw(String accountNumber, double amount) {
         super.withdraw(accountNumber, -amount);
     }
+
+    @Override
+    public void buildReport() {
+        ReportBuilderVisitor reportBuilderVisitor = new ReportBuilderVisitor("Banking");
+        for (Account account: getAllAccounts()) {
+            account.accept(reportBuilderVisitor);
+        }
+        setReport(reportBuilderVisitor.getReport());
+        notifyObservers("report");
+    }
+
+
 }

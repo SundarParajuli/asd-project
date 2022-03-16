@@ -2,6 +2,7 @@ package banking;
 
 
 
+import creditcard.CreditAccountService;
 import framework.commands.*;
 import framework.ui.MainFrm;
 import framework.ui.UIController;
@@ -21,6 +22,7 @@ public class Application {
             uiController.setDepositCommand(new DepositAccountCommand(BankingAccountService.getInstance()));
             uiController.setWithdrawCommand(new WithdrawCommand(BankingAccountService.getInstance()));
             uiController.setAddInterestCommand(new AddInterestCommand(BankingAccountService.getInstance()));
+            uiController.setReportCommand(new ReportCommand(BankingAccountService.getInstance()));
 
             //Create a new instance of our application's frame, and make it visible.
             uiController.setVisible(true);

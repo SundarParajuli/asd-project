@@ -1,7 +1,13 @@
 package framework.visitor;
 
-import framework.entity.Account;
+import banking.CheckingAccount;
+import banking.SavingAccount;
+import creditcard.CreditAccount;
 
 public interface AccountVisitor {
-    void visit(Account account);
+    void visit(CheckingAccount account);
+
+    void visit(SavingAccount account);
+
+    void visit(CreditAccount account);
 }

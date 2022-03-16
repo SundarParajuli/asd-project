@@ -77,17 +77,18 @@ public class JDialog_Deposit extends JDialog
 			if (object == JButton_OK)
 				JButtonOK_actionPerformed(event);
 			else if (object == JButton_Cancel)
-				JButtonCalcel_actionPerformed(event);
+				JButtonCancel_actionPerformed(event);
 		}
 	}
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
         parentframe.amount =JTextField_Deposit.getText();
+//		parentframe.setAccountNumber(JTextField_NAME.getText().trim());
         dispose();
 	}
 
-	void JButtonCalcel_actionPerformed(java.awt.event.ActionEvent event)
+	void JButtonCancel_actionPerformed(java.awt.event.ActionEvent event)
 	{
 		dispose();
 	}

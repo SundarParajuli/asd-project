@@ -15,8 +15,21 @@ public class InterestCalculationVisitor implements AccountVisitor {
         this.accountDAO = accountDAO;
     }
 
+
     @Override
-    public void visit(Account account) {
+    public void visit(CheckingAccount account) {
+        account.interest();
+        accountDAO.updateAccount(account);
+    }
+
+    @Override
+    public void visit(SavingAccount account) {
+        account.interest();
+        accountDAO.updateAccount(account);
+    }
+
+    @Override
+    public void visit(CreditAccount account) {
         account.interest();
         accountDAO.updateAccount(account);
     }

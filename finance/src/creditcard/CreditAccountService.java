@@ -11,6 +11,7 @@ import framework.entity.Account;
 import framework.entity.AccountService;
 import framework.entity.Customer;
 import framework.observer.SMSSender;
+import framework.visitor.ReportBuilderVisitor;
 
 import java.time.LocalDate;
 
@@ -62,29 +63,11 @@ public class CreditAccountService extends AccountService {
 
     @Override
     public void buildReport() {
-        String billstring = "";
-        LocalDate todaydate = LocalDate.now();
+        ReportBuilderVisitor reportBuilderVisitor = new ReportBuilderVisitor("CreditCard");
         for (Account account: getAllAccounts()) {
-            Customer cust = account.getCustomer();
-            CreditAccount act = (CreditAccount) account;
-            double prevBalance = act.getPrevBalance();
-            double totalCredit = act.getTotalCredit();
-            double totalCharge = act.getTotalCharge();
-            double newBalance = act.getNewBalance();
-            double totalDue = act.getTotalDue();
-            billstring += String.format("Name= %s\r\n", cust.getName());
-            billstring += String.format("Address= %s, %s, %s, %s\r\n", cust.getStreet(), cust.getCity(), cust.getState(), cust.getZip());
-            billstring += String.format("CC number= %s\r\n", account.getAccountNumber());
-            billstring += String.format("CC type= %s\r\n", account.getAccountType());
-            billstring += String.format("Previous balance = $ %f\r\n", prevBalance);
-            billstring += String.format("Total Credits = $ %f\r\n", totalCredit);
-            billstring += String.format("Total Charges = $ %f\r\n", totalCharge);
-            billstring += String.format("New balance = $ %f\r\n", newBalance);
-            billstring += String.format("Total amount due = $ %f\r\n", totalDue);
-            billstring += "\r\n";
-            billstring += "\r\n";
+            account.accept(reportBuilderVisitor);
         }
-        setReport(billstring);
+        setReport(reportBuilderVisitor.getReport());
         notifyObservers("report");
     }
 }

@@ -64,8 +64,7 @@ public abstract class AccountService implements AccountObservable {
         notifyObservers("interest");
     }
 
-    public void buildReport() {
-    }
+    public abstract void buildReport();
 
     @Override
     public void registerObserver(AccountObserver observer) {
@@ -79,6 +78,7 @@ public abstract class AccountService implements AccountObservable {
 
     @Override
     public void notifyObservers(String type) {
+        System.out.println(type);
         for(AccountObserver ao : observerList){
             ao.update(type);
         }

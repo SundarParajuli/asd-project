@@ -3,6 +3,7 @@ package framework.ui;
 		A basic implementation of the JDialog class.
 */
 
+import banking.BankingAccountService;
 import framework.entity.Personal;
 
 import javax.swing.*;
