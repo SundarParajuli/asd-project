@@ -15,7 +15,7 @@ public class Application {
             UIController uiController = HomeFrame.getInstance();
             uiController.init("Credit Card Application", new CreditUIConfiguration());
 
-            
+
             uiController.setAddPersonalAccountCommand(new AddPAccountCommand(CreditAccountService.getInstance()));
             uiController.setAddCompanyAccountCommand(new AddCAccountCommand(CreditAccountService.getInstance()));
             uiController.setDepositCommand(new DepositToAccountCommand(CreditAccountService.getInstance()));
