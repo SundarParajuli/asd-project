@@ -4,11 +4,11 @@ package framework.commands;
 import framework.entity.AccountService;
 import framework.ui.UIController;
 
-public class AddInterestCommand implements Command {
+public class AddInterestToAccountCommand implements Command {
 
 	private AccountService accountService;
 
-	public AddInterestCommand(AccountService accountService) {
+	public AddInterestToAccountCommand(AccountService accountService) {
 		this.accountService = accountService;
 	}
 

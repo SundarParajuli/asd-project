@@ -16,12 +16,12 @@ public class Application {
             uiController.init("Credit Card Application", new CreditUIConfiguration());
 
             //commands
-            uiController.setAddPersonalAccountCommand(new AddPersonalAccountCommand(CreditAccountService.getInstance()));
-            uiController.setAddCompanyAccountCommand(new AddCompanyAccountCommand(CreditAccountService.getInstance()));
-            uiController.setDepositCommand(new DepositAccountCommand(CreditAccountService.getInstance()));
-            uiController.setWithdrawCommand(new WithdrawCommand(CreditAccountService.getInstance()));
-            uiController.setAddInterestCommand(new AddInterestCommand(CreditAccountService.getInstance()));
-            uiController.setReportCommand(new ReportCommand(CreditAccountService.getInstance()));
+            uiController.setAddPersonalAccountCommand(new AddPAccountCommand(CreditAccountService.getInstance()));
+            uiController.setAddCompanyAccountCommand(new AddCAccountCommand(CreditAccountService.getInstance()));
+            uiController.setDepositCommand(new DepositToAccountCommand(CreditAccountService.getInstance()));
+            uiController.setWithdrawCommand(new WithdrawFromAccountCommand(CreditAccountService.getInstance()));
+            uiController.setAddInterestCommand(new AddInterestToAccountCommand(CreditAccountService.getInstance()));
+            uiController.setReportCommand(new GenerateReportCommand(CreditAccountService.getInstance()));
 
             uiController.setVisible(true);
         } catch (Throwable t) {

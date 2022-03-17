@@ -14,12 +14,12 @@ public class Application {
             uiController.init("Banking Application", new BankingUIConfiguration());
 
             //commands
-            uiController.setAddPersonalAccountCommand(new AddPersonalAccountCommand(BankingAccountService.getInstance()));
-            uiController.setAddCompanyAccountCommand(new AddCompanyAccountCommand(BankingAccountService.getInstance()));
-            uiController.setDepositCommand(new DepositAccountCommand(BankingAccountService.getInstance()));
-            uiController.setWithdrawCommand(new WithdrawCommand(BankingAccountService.getInstance()));
-            uiController.setAddInterestCommand(new AddInterestCommand(BankingAccountService.getInstance()));
-            uiController.setReportCommand(new ReportCommand(BankingAccountService.getInstance()));
+            uiController.setAddPersonalAccountCommand(new AddPAccountCommand(BankingAccountService.getInstance()));
+            uiController.setAddCompanyAccountCommand(new AddCAccountCommand(BankingAccountService.getInstance()));
+            uiController.setDepositCommand(new DepositToAccountCommand(BankingAccountService.getInstance()));
+            uiController.setWithdrawCommand(new WithdrawFromAccountCommand(BankingAccountService.getInstance()));
+            uiController.setAddInterestCommand(new AddInterestToAccountCommand(BankingAccountService.getInstance()));
+            uiController.setReportCommand(new GenerateReportCommand(BankingAccountService.getInstance()));
 
             //Create a new instance of our application's frame, and make it visible.
             uiController.setVisible(true);

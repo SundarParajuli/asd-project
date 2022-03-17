@@ -4,10 +4,10 @@ import framework.entity.AccountService;
 import framework.ui.UIController;
 
 
-public class AddCompanyAccountCommand implements Command {
+public class AddCAccountCommand implements Command {
 	private AccountService accountService;
 
-	public AddCompanyAccountCommand(AccountService accountService) {
+	public AddCAccountCommand(AccountService accountService) {
 		this.accountService = accountService;
 	}
 
