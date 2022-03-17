@@ -3,6 +3,9 @@ package framework.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import banking.BankingAccountService;
+import creditcard.CreditAccountService;
+import framework.observer.Sender;
 import framework.ui.MainFrm;
 import framework.visitor.InterestCalculationVisitor;
 
@@ -32,25 +35,37 @@ public abstract class AccountService implements AccountObservable {
     public abstract Account createAccount(String accountType, Customer customer);
 
     public void deposit(String accountNumber, double amount) {
+        String message = "";
+        if(this instanceof BankingAccountService){
+            message = "deposit";
+        }else if(this instanceof CreditAccountService){
+            message = "charge";
+        }
         Account account = accountDAO.loadAccount(accountNumber);
         if(account != null) {
             account.deposit(amount);
             accountDAO.updateAccount(account);
-        }else{
-            System.out.println("deposited");
         }
         this.changedAccount = account;
         this.changedAmount = amount;
-        notifyObservers("deposit");
+        notifyObservers(message);
     }
 
     public void withdraw(String accountNumber, double amount) {
+        String message = "";
+        if(this instanceof BankingAccountService){
+            message = "withdraw";
+        }else if(this instanceof CreditAccountService){
+            message = "deposit";
+        }
         Account account = accountDAO.loadAccount(accountNumber);
-        account.withdraw(amount);
-        accountDAO.updateAccount(account);
+        if(account != null) {
+            account.withdraw(amount);
+            accountDAO.updateAccount(account);
+        }
         this.changedAccount = account;
         this.changedAmount = amount;
-        notifyObservers("withdraw");
+        notifyObservers(message);
     }
 
     public void addInterest() {
@@ -76,7 +91,6 @@ public abstract class AccountService implements AccountObservable {
 
     @Override
     public void notifyObservers(String type) {
-        System.out.println(type);
         for(AccountObserver ao : observerList){
             ao.update(type);
         }

@@ -245,8 +245,6 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 		if (type.equals("report")) {
 			return;
 		}
-
-		// reload accounts to view
 		if (model.getRowCount() > 0) {
 			for (int i = model.getRowCount() - 1; i > -1; i--) {
 				model.removeRow(i);
@@ -278,7 +276,6 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 
 	void MainFrm_windowClosing(WindowEvent event)
 	{
-		// to do: code goes here.
 		MainFrm_windowClosing_Interaction1(event);
 	}
 

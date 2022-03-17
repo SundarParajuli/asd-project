@@ -10,8 +10,10 @@ import creditcard.paymentCalculationStrategy.SilverPaymentCalculationStrategy;
 import framework.entity.Account;
 import framework.entity.AccountService;
 import framework.entity.Customer;
-import framework.observer.EmailSender;
-import framework.observer.SMSSender;
+import framework.observer.BankingEmailSender;
+import framework.observer.BankingSMSSender;
+import framework.observer.CreditEmailSender;
+import framework.observer.CreditSMSSender;
 import framework.visitor.ReportBuilderVisitor;
 
 
@@ -21,8 +23,8 @@ public class CreditAccountService extends AccountService {
 
     private CreditAccountService() {
         super(CreditAccountDAO.getINSTANCE());
-        this.registerObserver(new EmailSender(this));
-        this.registerObserver(new SMSSender(this));
+        this.registerObserver(new CreditEmailSender(this));
+        this.registerObserver(new CreditSMSSender(this));
     }
 
     public static CreditAccountService getInstance() {

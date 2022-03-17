@@ -44,17 +44,17 @@ public class JDialog_Withdraw extends JDialog
 		getContentPane().add(JButton_OK);
 		JButton_OK.setBounds(48,84,84,24);
 
-		JButton_Calcel.setText("Cancel");
-		JButton_Calcel.setActionCommand("Cancel");
-		getContentPane().add(JButton_Calcel);
-		JButton_Calcel.setBounds(156,84,84,24);
+		JButton_Cancel.setText("Cancel");
+		JButton_Cancel.setActionCommand("Cancel");
+		getContentPane().add(JButton_Cancel);
+		JButton_Cancel.setBounds(156,84,84,24);
 		
 	    JTextField_NAME.setText(this.accountNumber);
 	
 		
 		SymAction lSymAction = new SymAction();
 		JButton_OK.addActionListener(lSymAction);
-		JButton_Calcel.addActionListener(lSymAction);
+		JButton_Cancel.addActionListener(lSymAction);
 		
 	}
 
@@ -66,7 +66,7 @@ public class JDialog_Withdraw extends JDialog
 	JTextField JTextField_NAME = new JTextField();
 	JTextField JTextField_AMT = new JTextField();
 	JButton JButton_OK = new JButton();
-	JButton JButton_Calcel = new JButton();
+	JButton JButton_Cancel = new JButton();
 
 
 
@@ -77,7 +77,7 @@ public class JDialog_Withdraw extends JDialog
 			Object object = event.getSource();
 			if (object == JButton_OK)
 				JButtonOK_actionPerformed(event);
-			else if (object == JButton_Calcel)
+			else if (object == JButton_Cancel)
 				JButtonCancel_actionPerformed(event);
 		}
 	}

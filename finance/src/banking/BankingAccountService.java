@@ -9,8 +9,8 @@ import framework.entity.Account;
 import framework.entity.AccountService;
 import framework.entity.Customer;
 import framework.entity.Personal;
-import framework.observer.EmailSender;
-import framework.observer.SMSSender;
+import framework.observer.BankingEmailSender;
+import framework.observer.BankingSMSSender;
 import framework.visitor.ReportBuilderVisitor;
 
 
@@ -19,8 +19,8 @@ public class BankingAccountService extends AccountService {
 
     private BankingAccountService() {
         super(BankingAccountDAO.getINSTANCE());
-        this.registerObserver(new EmailSender(this));
-        this.registerObserver(new SMSSender(this));
+        this.registerObserver(new BankingEmailSender(this));
+        this.registerObserver(new BankingSMSSender(this));
     }
 
     @Override
