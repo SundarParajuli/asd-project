@@ -58,8 +58,8 @@ public abstract class AccountService implements AccountObservable {
     public void addInterest() {
         InterestCalculationVisitor interestCalculationVisitor = new InterestCalculationVisitor(accountDAO);
         List<Account> accounts = getAllAccounts();
-        for(int i = 0; i < accounts.size(); i++){
-            accounts.get(i).accept(interestCalculationVisitor);
+        for (Account account : accounts) {
+            account.accept(interestCalculationVisitor);
         }
         notifyObservers("interest");
     }
