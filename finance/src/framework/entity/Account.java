@@ -19,7 +19,7 @@ public abstract class Account implements Consumer<AccountVisitor> {
         this.accountEntries = new ArrayList<>();
     }
 
-    public void setInterestCalculator(InterestCalculationStrategy interestCalculationStrategy) {
+    public void setInterestCalculationStrategy(InterestCalculationStrategy interestCalculationStrategy) {
         this.interestCalculationStrategy = interestCalculationStrategy;
     }
 
@@ -30,19 +30,19 @@ public abstract class Account implements Consumer<AccountVisitor> {
     }
 
     public void deposit(double amount) {
-        AccountEntry entry = new AccountEntry(amount, "deposit", null);
+        AccountEntry entry = new AccountEntry(amount, "deposit");
         addAccountEntry(entry);
     }
 
     public void withdraw(double amount) {
-        AccountEntry entry = new AccountEntry(amount, "withdraw", null);
+        AccountEntry entry = new AccountEntry(amount, "withdraw");
         addAccountEntry(entry);
     }
 
     public void addInterest() {
         if (interestCalculationStrategy != null) {
             double interest = interestCalculationStrategy.calculateInterest(getBalance());
-            AccountEntry entry = new AccountEntry(interest, "interest", null);
+            AccountEntry entry = new AccountEntry(interest, "interest");
             addAccountEntry(entry);
         }
         System.out.println(getAccountNumber() + "\t" +getBalance());

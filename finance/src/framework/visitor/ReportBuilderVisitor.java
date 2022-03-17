@@ -44,12 +44,11 @@ public class ReportBuilderVisitor implements AccountVisitor{
     @Override
     public void visit(CreditAccount account) {
         Customer customer = account.getCustomer();
-        CreditAccount creditAccount = (CreditAccount) account;
-        double prevBalance = creditAccount.getPrevBalance();
-        double totalCredit = creditAccount.getTotalCredit();
-        double totalCharge = creditAccount.getTotalCharge();
-        double newBalance = creditAccount.getNewBalance();
-        double totalDue = creditAccount.getTotalDue();
+        double prevBalance = account.getPrevBalance();
+        double totalCredit = account.getTotalCredit();
+        double totalCharge = account.getTotalCharge();
+        double newBalance = account.getNewBalance();
+        double totalDue = account.getTotalDue();
         sb.append(String.format("Name= %s\r\n", customer.getName()));
         sb.append(String.format("Address= %s, %s, %s, %s\r\n", customer.getStreet(), customer.getCity(), customer.getState(), customer.getZip()));
         sb.append(String.format("CC number= %s\r\n", account.getAccountNumber()));
