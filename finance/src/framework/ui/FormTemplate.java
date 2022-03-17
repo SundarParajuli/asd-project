@@ -16,7 +16,6 @@ public abstract class FormTemplate extends JFrame {
     protected Object[] rowData;
 
     public final void generateForm(String title, UIConfiguration uiConfiguration, Map<String, ActionListener> buttons){
-//        initCommands();
         setupJPanel(title, uiConfiguration.getReportColumnNames());
         pSetSize();
         panelBounds();

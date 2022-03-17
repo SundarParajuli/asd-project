@@ -44,26 +44,20 @@ public class JDialog_Deposit extends JDialog
 		JButton_Cancel.setBounds(156,84,84,24);
 		getContentPane().add(JTextField_Deposit);
 		JTextField_Deposit.setBounds(84,48,144,24);
-		//}}
 	    JTextField_NAME.setText(this.accountNumber);
-	    
-		//{{REGISTER_LISTENERS
 		SymAction lSymAction = new SymAction();
 		JButton_OK.addActionListener(lSymAction);
 		JButton_Cancel.addActionListener(lSymAction);
-		//}}
 	}
 
 
 
-	//{{DECLARE_CONTROLS
 	JLabel JLabel1 = new JLabel();
 	JLabel JLabel2 = new JLabel();
 	JTextField JTextField_NAME = new JTextField();
 	JButton JButton_OK = new JButton();
 	JButton JButton_Cancel = new JButton();
 	JTextField JTextField_Deposit = new JTextField();
-	//}}
 
 
 	class SymAction implements java.awt.event.ActionListener

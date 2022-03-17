@@ -28,7 +28,7 @@ public class BankingAccountDAO implements AccountDAO {
     @Override
     public void saveAccount(Account account) {
         accountDB.put(account.getAccountNumber(), account);
-        System.out.println("Saving account " + account.getAccountNumber() + " for customer " + account.getCustomer().getName());
+        System.out.println("Account " + account.getAccountNumber() + " for customer " + account.getCustomer().getName());
     }
 
     @Override
