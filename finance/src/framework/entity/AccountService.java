@@ -5,8 +5,7 @@ import java.util.List;
 
 import banking.BankingAccountService;
 import creditcard.CreditAccountService;
-import framework.observer.Sender;
-import framework.ui.MainFrm;
+import framework.ui.HomeFrame;
 import framework.visitor.InterestCalculationVisitor;
 
 public abstract class AccountService implements AccountObservable {
@@ -19,8 +18,8 @@ public abstract class AccountService implements AccountObservable {
     public AccountService(AccountDAO accountDAO){
         this.accountDAO = accountDAO;
         this.observerList = new ArrayList<>();
-        this.registerObserver(MainFrm.getInstance());
-        MainFrm.getInstance().setSubject(this);
+        this.registerObserver(HomeFrame.getInstance());
+        HomeFrame.getInstance().setSubject(this);
     }
 
     public final void createAccount(String accountNumber, Customer customer, String accountType) {

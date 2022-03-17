@@ -2,7 +2,6 @@ package framework.commands;
 
 
 import framework.entity.AccountService;
-import framework.ui.Command;
 import framework.ui.UIController;
 
 public class AddInterestCommand implements Command {

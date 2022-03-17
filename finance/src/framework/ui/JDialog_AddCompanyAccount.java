@@ -10,9 +10,9 @@ import java.util.List;
 
 public class JDialog_AddCompanyAccount extends JDialog
 {
-    private MainFrm parentFrame;
+    private HomeFrame parentFrame;
 	List<JRadioButton> btnAccountTypes = new ArrayList<>();
-	public JDialog_AddCompanyAccount(MainFrm parent)
+	public JDialog_AddCompanyAccount(HomeFrame parent)
 	{
 		super(parent);
 		parentFrame =parent;

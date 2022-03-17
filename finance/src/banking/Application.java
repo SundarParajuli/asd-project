@@ -1,7 +1,7 @@
 package banking;
 
 import framework.commands.*;
-import framework.ui.MainFrm;
+import framework.ui.HomeFrame;
 import framework.ui.UIController;
 
 import javax.swing.*;
@@ -10,7 +10,7 @@ public class Application {
     public static void main(String[] args){
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            UIController uiController = MainFrm.getInstance();
+            UIController uiController = HomeFrame.getInstance();
             uiController.init("Banking Application", new BankingUIConfiguration());
 
             //commands

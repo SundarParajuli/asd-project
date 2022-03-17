@@ -3,6 +3,8 @@ package framework.ui;
 
 import banking.BankingUIConfiguration;
 import creditcard.CreditUIConfiguration;
+import framework.commands.Command;
+import framework.commands.NoCommand;
 import framework.entity.AccountObserver;
 import framework.entity.Account;
 import framework.entity.AccountService;
@@ -13,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.*;
 
-public class MainFrm extends FormTemplate implements UIController, AccountObserver
+public class HomeFrame extends FrameCreationTemplate implements UIController, AccountObserver
 {
 	private Command addPersonalAccountCommand;
 	private Command addCompanyAccountCommand;
@@ -40,10 +42,10 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 
     private AccountService subject;
     private UIConfiguration uiConfiguration;
-    private static volatile MainFrm myframe;
+    private static volatile HomeFrame myframe;
 
 
-	private MainFrm()
+	private HomeFrame()
 	{
 		this.addPersonalAccountCommand = NoCommand.getInstance();
 		this.addCompanyAccountCommand = NoCommand.getInstance();
@@ -54,11 +56,11 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 		this.accountTypes = new ArrayList<>();
 	}
 
-	public static MainFrm getInstance() {
+	public static HomeFrame getInstance() {
 		if (myframe == null) {
-			synchronized (MainFrm.class) {
+			synchronized (HomeFrame.class) {
 				if (myframe == null) {
-					myframe = new MainFrm();
+					myframe = new HomeFrame();
 				}
 			}
 		}
@@ -269,7 +271,7 @@ public class MainFrm extends FormTemplate implements UIController, AccountObserv
 		public void windowClosing(WindowEvent event)
 		{
 			Object object = event.getSource();
-			if (object == MainFrm.this)
+			if (object == HomeFrame.this)
 				MainFrm_windowClosing(event);
 		}
 	}

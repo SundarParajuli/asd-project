@@ -7,10 +7,10 @@ public class JDialog_Deposit extends JDialog
 {
     
 
-    private final MainFrm parentFrame;
+    private final HomeFrame parentFrame;
     private final String accountNumber;
 
-	public JDialog_Deposit(MainFrm parentFrame, String accountNumber)
+	public JDialog_Deposit(HomeFrame parentFrame, String accountNumber)
 	{
 		super(parentFrame);
 		this.parentFrame =parentFrame;

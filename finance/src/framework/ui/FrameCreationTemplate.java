@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.Map;
 
-public abstract class FormTemplate extends JFrame {
+public abstract class FrameCreationTemplate extends JFrame {
     protected boolean newAccount;
     protected DefaultTableModel model;
     protected JTable JTable1;

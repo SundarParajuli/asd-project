@@ -1,6 +1,7 @@
 package framework.ui;
 
 
+import framework.commands.Command;
 import framework.entity.Customer;
 
 public interface UIController {

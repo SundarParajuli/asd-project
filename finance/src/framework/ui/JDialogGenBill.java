@@ -5,7 +5,7 @@ import javax.swing.*;
 public class JDialogGenBill extends JDialog
 {
     
-	public JDialogGenBill(MainFrm parent)
+	public JDialogGenBill(HomeFrame parent)
 	{
 		super(parent);
 

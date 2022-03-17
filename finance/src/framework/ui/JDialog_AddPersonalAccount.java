@@ -10,7 +10,7 @@ import java.util.List;
 
 public class JDialog_AddPersonalAccount extends JDialog
 {
-    private MainFrm parentFrame;
+    private HomeFrame parentFrame;
 	List<JRadioButton> btnAccountTypes = new ArrayList<>();
 	JLabel JLabel1 = new JLabel();
 	JLabel JLabel2 = new JLabel();
@@ -31,7 +31,7 @@ public class JDialog_AddPersonalAccount extends JDialog
 	JTextField JTextField_ACNR = new JTextField();
 	JLabel JLabel8 = new JLabel();
     
-	public JDialog_AddPersonalAccount(MainFrm parent) {
+	public JDialog_AddPersonalAccount(HomeFrame parent) {
 		super(parent);
 		parentFrame =parent;
 		setTitle("Add personal account");

@@ -1,4 +1,6 @@
-package framework.ui;
+package framework.commands;
+
+import framework.ui.UIController;
 
 public class NoCommand implements Command {
     private static volatile NoCommand instance;

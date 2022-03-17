@@ -7,10 +7,10 @@ import java.awt.*;
 public class JDialog_Withdraw extends JDialog
 {
    
-    private MainFrm parentFrame;
+    private HomeFrame parentFrame;
     private String accountNumber;
 
-	public JDialog_Withdraw(MainFrm parent, String accountNumber)
+	public JDialog_Withdraw(HomeFrame parent, String accountNumber)
 	{
 		super(parent);
 		parentFrame =parent;
